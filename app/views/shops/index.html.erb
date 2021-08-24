@@ -1,0 +1,13 @@
+<h1>Our Partners Shops</h1>
+
+<%@shops.each do  |shop| %>
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%=shop.name.titleize%></h5>
+    <p class="card-text"><%=shop.category.capitalize %> local</p>
+     <%= link_to 'Go to local', shop_show_path(shop.nick), class:"btn btn-primary" %>
+  </div>
+</div>
+
+<%end%>
