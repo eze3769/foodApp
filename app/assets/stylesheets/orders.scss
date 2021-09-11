@@ -1,0 +1,49 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.cards-table{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.table_list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80%;
+    border: 1px black solid;
+    min-height: 200px;
+}
+.table_style{
+    display: flex;
+    border: 1px black solid;
+    background-color: darkgrey;
+    margin:5px;
+    justify-content: center;
+    align-content: center;
+    
+}
+.card{
+    width: 40px;
+    margin:5px;
+}
+.card:hover{
+    
+        transform: scale(1.08);
+    
+}
+.product_img{
+    width: 150px;
+}
+.non-active-table{
+    background-color: grayscale($color: #696363);
+}
+.active-table{
+    background-color: green;
+}
+.table-link{
+    text-decoration: none;
+    color:whitesmoke;
+    font-weight: bold;
+    padding: 3px 20px;
+}

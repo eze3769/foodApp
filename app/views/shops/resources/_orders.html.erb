@@ -1,0 +1,25 @@
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Creación del pedido</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <th scope="row"><%=order.id%></th>
+            <td><%=order.product%></td>
+            <td><%=order.quantity%></td>
+            <td>$<%=order.price%></td>
+            <td><%=order.created_at.getlocal()%></td>
+          </tr>
+          <%end%>
+        </tbody>
+    </table>
+
+

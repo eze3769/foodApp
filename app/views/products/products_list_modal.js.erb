@@ -1,0 +1,9 @@
+
+document.getElementById('products_list').innerHTML ="<%= j render 'products/modal/products_modal' %>";
+
+var list_products = new bootstrap.Modal(document.getElementById('products-modal'), {
+  keyboard: true
+})
+
+    
+list_products.show()

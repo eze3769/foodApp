@@ -22,7 +22,8 @@ before_action :set_shop, only: [:show, :destroy, :edit, :admin]
   end
   
   def admin
-
+    @orders = Order.where(shop_id: Shop.find_by_nick(params[:shop_nick]).id)
+    
   end
   private
 

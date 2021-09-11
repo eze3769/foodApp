@@ -1,0 +1,9 @@
+
+document.getElementById('product_info').innerHTML ="<%= j render 'product_information_modal' %>";
+
+var info_modal = new bootstrap.Modal(document.getElementById('product_info_modal'), {
+  keyboard: true
+})
+
+    
+info_modal.show()
