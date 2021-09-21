@@ -13,10 +13,13 @@ Rails.application.routes.draw do
       get '/', to:'shops#admin', as:'shop_admin'
       scope '/orders' do
         get '/', to:'orders#index', as:'orders_index'
+        post '/',to:'orders#create',as:'orders_create'
         get '/show#order', to:'orders#show', as:'orders_show'
+        
        scope '/:place_id'do
         scope '/:table_id'do
           post 'booking', to:'bookings#create',as:'bookings_create'
+          post 'booking#close', to:'bookings#close',as:'bookings_close'
       end
       end
       end

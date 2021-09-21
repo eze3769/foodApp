@@ -22,18 +22,18 @@
                 </tr>
               </thead>
               <tbody>
-              <%# <% @orders.each do |order|%>
+              <% @orders.each do |order|%>
                 <tr>
-                  <%# <th scope="row"><%=order.quantity%></th> %>
-                  <%# <td><%=order.product.capitalize()%></td> %>
+                   <th scope="row"><%=order.quantity%></th>
+                   <td><%=order.product.capitalize()%></td> 
               
-                  <%# <td><%=order.price%></td> %>
+                   <td><%=order.price%></td> 
                   
                 </tr>
-              
+              <%end%>
               </tbody>
             </table>
-            <%# <p>Subtotal: $<%=@subtotal%></p> %>
+           <p>Subtotal: $<%=@subtotal%></p> 
         
      
     </div>

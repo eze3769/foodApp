@@ -21,19 +21,21 @@
           <div class="card-body">
             <h5 class="card-title "><%= product.name.capitalize()%></h5>
              <%= link_to 'Más info', product_modal_path(:product_data => product), remote: true, class:"btn btn-primary" %>
-             <%= link_to 'Más info', product_modal_path(:product_data => product), remote: true, class:"btn btn-primary" %>
+             <%= link_to "Agregar", orders_create_path(:product_data => product, :place_id =>@place.id, :table_id =>@table.id), method: :post, confirm: "¿Deseas agregar #{product.name} a la mesa #{@table.name}?" %>
           </div>
       </div>
       <%end%>
+     
       <%end%>
     </div>
     
       </div>
       <div class="modal-footer">
       <%if @state == false%>
-       <%= button_to 'Abrir cuenta', {:controller => "bookings", :action => "create", :place_id => @place.id, :table_id=> @table.id} , :method=>:post, remote: true, class:"btn btn-danger"  %>
+       <%= button_to 'Abrir cuenta', {:controller => "bookings", :action => "create", :place_id => @place.id, :table_id=> @table.id} , :method=>:post, remote: true, class:"btn btn-warning"  %>
        <%else%>
       <%= link_to 'Ver pedidos', orders_show_path(:table_id => @table.id,:place_id => @place.id), remote: true, class:"btn btn-primary" %>
+      <%= link_to 'Cerrar cuenta', bookings_close_path(:table_id => @table.id,:place_id => @place.id), class:"btn btn-danger", :method => :post %>
       <%end%>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         

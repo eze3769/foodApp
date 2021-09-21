@@ -22,6 +22,8 @@ class ProductsController < ApplicationController
         elsif @booking.status == "closed" then
             @state = false
         end
+        @subtotal = 0
+       
       
         respond_to do |format|
           format.js
