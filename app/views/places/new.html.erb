@@ -1,0 +1,4 @@
+<h3>Ingrese un espacio de su comercio:</h3>
+
+<%= render 'form', model:@place, url:places_create_path %>
+<%=link_to 'Volver a configuración', shops_configuration_path(@shop.nick), class:'btn btn-secondary' %>

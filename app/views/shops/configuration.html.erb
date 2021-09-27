@@ -1,0 +1,40 @@
+<h3>Panel de control</h3>
+<div>
+    <h5>Espacios Generados</h5>
+    <%if @shop.places == []%>
+        <p>No hay espacios generados, agregue su primer espacio en el siguiente botón:</p>
+        
+    <%else%>
+        
+    <%end%>
+<%=link_to 'Agregar espacio', places_new_path,class:"btn btn-danger"%>
+</div>
+<div>
+    <h5>Productos:</h5>
+    <%if @shop.products == []%>
+        <p>No hay productos, agregue presiondando el siguiente botón:</p>
+        
+    <%else%>
+         <%@products.each do |product|%>
+          <div class="card" style="width: 10rem;">
+          <div class="d-flex align-self-center justify-content-center">
+          <%if product.image.attached?%>
+           <%=  image_tag(product.image, :alt => "comida", class:"product_img") %>
+           <%end%>
+          </div>
+           
+          <div class="card-body">
+            <h5 class="card-title "><%= product.name.capitalize()%></h5>
+             
+          </div>
+          <div class="card-footer ">
+            <%=button_to 'Editar', products_edit_path(:product_id => product.id),method:'get', class:'btn btn-warning'%>
+            <%=button_to 'Editar', products_destroy_path(:product_id => product.id),method:'get', class:'btn btn-danger'%>
+             
+          </div>
+      </div>
+      <%end%>
+    <%end%>
+    <%=link_to 'Agregar producto', products_new_path,class:"btn btn-danger"%>
+</div>
+<%=link_to 'Volver al administrador', shop_admin_path(@shop.nick),class:'btn btn-secondary' %>

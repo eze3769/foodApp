@@ -9,7 +9,9 @@ class OrdersController < ApplicationController
         end
         
         @products= @shop.products.all
-        @tables = @place.tables.all
+        if @tables != nil
+            @tables = @place.tables.all
+        end
        
     end
     def show

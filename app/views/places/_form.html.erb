@@ -1,0 +1,22 @@
+<div class="container mb-3">
+<% if model.errors.any? %>
+  <div id="error_explanation">
+    <h5> No se puede guardar el comercio por los siguientes motivos:</h5>
+
+    <ul>
+      <% model.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: model, method: 'post', url: url do |form| %>
+
+    <%= form.label :name, "Nombre del espacio", class:"form-label" %>
+    <%= form.text_field :name, class:"form-control"%>
+    <%= form.label :description, "Descripción" , class:"form-label"%>
+    <%= form.text_field :description, class:"form-control"%>
+    <%= form.submit %>
+  </div>
+  <% end %>

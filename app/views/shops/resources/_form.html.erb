@@ -1,0 +1,44 @@
+<div class="container mb-3">
+<% if shop.errors.any? %>
+  <div id="error_explanation">
+    <h5> No se puede guardar el comercio por los siguientes motivos:</h5>
+
+    <ul>
+      <% shop.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: shop, method: 'post', url: url do |form| %>
+
+    <%= form.label :name, "Nombre del comercio", class:"form-label" %>
+    <%= form.text_field :name, class:"form-control"%>
+    <%= form.label :nick, "Nickname" , class:"form-label"%>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">https://nuestraweb.com/</span>
+        <%= form.text_field :nick, class:"form-control",id:"basic-url",placeholder:"El nombre con el que se accederá por URL, sin espacios ni caracteres especiales" %>
+        </div>
+  
+    <%= form.label :email, "Email", class:"form-label" %>
+    <%= form.email_field :email, class:"form-control" %>
+    <%= form.label :email_confirmation, "Confirme su email", class:"form-label" %>
+    <%= form.email_field :email_confirmation,class:"form-control" %>
+    <%= form.label :address, "Domicilio", class:"form-label" %>
+    <%= form.text_field :address, class:"form-control" %>
+    <%= form.label :country, "País", class:"form-label" %>
+    <%= form.text_field :country , class:"form-control"%>
+    <%= form.label :state, "Provincia", class:"form-label" %>
+    <%= form.text_field :state, class:"form-control" %>
+    <%= form.label :city, "Ciudad", class:"form-label" %>
+    <%= form.text_field :city, class:"form-control" %>
+    <%= form.label :category, "Categoría", class:"form-label" %>
+    <%= form.select :category, ["Restaurante", "Comida rápida", "Bar/pub"],class:"form-select" %>
+    <div class="input-group mb-3">
+    <%= form.label :category, "Fondo de pantalla", class:"input-group-text" %>
+    <%= form.file_field :background, class:"form-control"%>
+    </div>
+    
+  <%= form.submit %>
+  </div>
+  <% end %>
