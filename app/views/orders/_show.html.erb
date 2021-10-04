@@ -19,6 +19,7 @@
                   <th scope="col">Producto</th>
                   <%# <th scope="col">Descripción</th> %>
                   <th scope="col">Precio</th>
+                  <th scope="col">Borrar</th>
                 </tr>
               </thead>
               <tbody>
@@ -28,6 +29,7 @@
                    <td><%=order.product.capitalize()%></td> 
               
                    <td><%=order.price%></td> 
+                   <td><%=link_to 'x', orders_destroy_path(:order_id => order.id),method: 'delete', class:'btn btn-danger'%></td>
                   
                 </tr>
               <%end%>

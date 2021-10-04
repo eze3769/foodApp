@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
     before_action :set_shop, :set_place, :set_table, only: [:create,:close]
     def create 
         @table.bookings.create(status:'open')
-        redirect_back(fallback_location: root_path) , notice: "La sesión en la mesa fué abierta satisfactoriamente."
+        redirect_back(fallback_location: root_path , notice: "La sesión en la mesa #{@table.name} fué abierta satisfactoriamente.")
     end
 
     def close
@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
         booking.status = 'closed'
         booking.save
 
-        redirect_back(fallback_location: root_path) , notice: "La mesa fué cerrada satisfactoriamente."
+        redirect_back(fallback_location: root_path , notice: "La mesa #{@table.name} fué cerrada satisfactoriamente.")
     end
 
     private

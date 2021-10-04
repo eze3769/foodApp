@@ -1,3 +1,4 @@
+<%= render 'commons/navbar', shop:@shop%>
 <h3>Panel de control</h3>
 <div>
     <h5>Espacios Generados</h5>
@@ -5,6 +6,30 @@
         <p>No hay espacios generados, agregue su primer espacio en el siguiente botón:</p>
         
     <%else%>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%@shop.places.each do |place| %>
+    <tr>
+      <th scope="row"><%=place.id%></th>
+      <td><%=place.name%></td>
+      <td><%=place.description%></td>
+      <td>
+      <span><%=link_to 'Editar',places_edit_path(:place_id => place.id),class:'btn btn-warning'%></span>
+      <span><%=link_to 'Borrar', places_destroy_path(:place_id => place.id),method:'delete',class:'btn btn-danger'%></span>
+      </td>
+    </tr>
+
+        <%end%>
+  </tbody>
+</table>
         
     <%end%>
 <%=link_to 'Agregar espacio', places_new_path,class:"btn btn-danger"%>
@@ -29,7 +54,7 @@
           </div>
           <div class="card-footer ">
             <%=button_to 'Editar', products_edit_path(:product_id => product.id),method:'get', class:'btn btn-warning'%>
-            <%=button_to 'Editar', products_destroy_path(:product_id => product.id),method:'get', class:'btn btn-danger'%>
+            <%=button_to 'Borrar', products_destroy_path(:product_id => product.id),method:'delete', class:'btn btn-danger'%>
              
           </div>
       </div>

@@ -1,0 +1,4 @@
+<h3>Editar el espacio <%=@place.name%>:</h3>
+
+<%= render 'form', model:@place, url:places_update_path, method:"patch"%>
+<%=link_to 'Volver a configuración', shops_configuration_path(@shop.nick), class:'btn btn-secondary' %>

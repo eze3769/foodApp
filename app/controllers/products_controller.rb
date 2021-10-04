@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
     before_action :set_shop
-    before_action :set_product, only:[:edit,:update]
+    before_action :set_product, only:[:edit,:update,:destroy]
     
     def show
 
@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
     end
 
     def destroy
-      @product.find(params[:product_id]).destroy
+      @product.destroy
 
       redirect_back(fallback_location: root_path, notice: "El producto fué borrado satisfactoriamente.")
     end
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
         @place = @shop.places.find(params[:place_id])
         @table = @place.tables.find(params[:table_id])
-        @product_list = shop.products.all
+        @product_list = @shop.products.all
         @booking = @table.bookings.last
         @state = true
         if @booking == nil then

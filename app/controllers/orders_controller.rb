@@ -1,21 +1,8 @@
 class OrdersController < ApplicationController
-
-    def index
-        set_shop
-        if params[:place_id]
-            @place = @shop.places.find(params[:place_id])
-        else
-            @place = @shop.places.first
-        end
-        
-        @products= @shop.products.all
-        if @tables != nil
-            @tables = @place.tables.all
-        end
-       
-    end
+    before_action :set_shop
+    
     def show
-        set_shop
+        
         place = @shop.places.find(params[:place_id])
         @table = place.tables.find(params[:table_id])
         booking = @table.bookings.where(status:'open').first
@@ -32,13 +19,13 @@ class OrdersController < ApplicationController
         end
     end
     def create
-        set_shop
+        
         set_table
         booking = @table.bookings.last
         product_data = @shop.products.find(params[:product_data])
 
-        if booking.orders.exists?(:id => product_data) then
-            order = booking.orders.find(product_data.id)
+        if booking.orders.find_by(:product =>product_data.name) then
+            order = booking.orders.find_by(:product =>product_data.name)
             order.quantity += 1
             order.save
 
@@ -46,15 +33,27 @@ class OrdersController < ApplicationController
         new_product = {product:product_data.name,quantity:1,price:product_data.price}
         booking.orders.create(new_product)
         end
+
+        
       
     end
 
+    def destroy
+        set_table
+        booking = @table.bookings.find(params[:booking_id])
+        order = booking.orders.find(params[:order_id])
+        order.destroy
+
+
+      redirect_back( fallback_location:root_path, notice: "El producto fué borrado satisfactoriamente.")
+
+    end
     private
     def set_shop
         @shop = Shop.find_by_nick(params[:shop_nick])
     end
     def set_table
-        place = @shop.places.find(params[:place_id])
-        @table = place.tables.find(params[:table_id])
+        @place = @shop.places.find(params[:place_id])
+        @table = @place.tables.find(params[:table_id])
     end
 end

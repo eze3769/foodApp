@@ -1,0 +1,57 @@
+
+
+<div class="container mb-3">
+<% if @table.errors.any? %>
+  <div id="error_explanation">
+    <h5> No se puede guardar la mesa por los siguientes motivos:</h5>
+
+    <ul>
+      <% @table.errors.each do |error| %>
+        <li><%= error.message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div>
+<div>
+<h3>Agregar una mesa:</h3>
+<%= form_with model: @table, method: 'post', url: tables_create_path do |form| %>
+
+    <%= form.label :name, "Nombre", class:"form-label" %>
+    <%= form.text_field :name, class:"form-control", placeholder:'Ingrese el número de la mesa'%>
+    <%= form.submit 'Crear mesa'%>
+
+  <% end %>
+</div>
+<div>
+</div>
+  <h3>Agrega un rango de mesas:</h3>
+  <%= form_with model:@table, method: 'post', url: tables_batch_create_path do |form| %>
+
+    <%= form.label :from, "Desde la mesa:", class:"form-label" %>
+    <%= form.number_field :from, class:"form-control", placeholder:'Ingrese el número de la primer mesa a agregar'%>
+
+    <%= form.label :to, "Hasta la mesa:", class:"form-label" %>
+    <%= form.number_field :to, class:"form-control", placeholder:'Ingrese el número de la última mesa a agregar'%>
+
+    <%= form.submit 'Crear mesa'%>
+
+  <% end %>
+    </div>
+    </div>
+    <div>
+      <h4>Mesas activas:</h4> 
+
+        <%if @place.tables != []%>
+  <div class="table_list">
+    <% @place.tables.each do |table| %>
+      <div class="table_style non-active-table" style='width:40px;height:20px'>
+      <p class="table-link "><%=table.name%></p>
+      </div>
+      <%end%>
+      
+  </div>
+  <%else%>
+  <p>No hay mesas creadas en <%=@place.name%>. </p>
+  <%end%>
+    </div>

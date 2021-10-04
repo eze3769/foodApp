@@ -1,0 +1,38 @@
+<%= render 'commons/navbar', shop:@shop%>
+
+<div class="container">
+<%if @places != [] %>
+  <%= form_with(url: shops_tables_manager_path(:place_id => @place.id), method: "get",name: "place_form") do |form|  %>
+    <%= form.label :place_id, "Elegir sector:" %>
+    <%= form.collection_select :place_id, @shop.places, :id, :name ,selected: @place.id, class:"form-select" %>
+    <%= form.submit "Ver",class:"btn btn-primary" %>
+  <% end %>
+  <p>Descripción: <%=@place.description.capitalize()%></p>
+
+  <%if @tables != []%>
+  <h2>Seleccione mesa en <%=@place.name%>:</h2>
+  <div class="table_list">
+    <% @tables.each do |table| %>
+      <div class="table_style <%=table.bookings.where(status:'open')==[] ? 'non-active-table' : 'active-table'%>" style='width:60px;height:30px'>
+        <%= link_to table.name, products_list_modal_path(:place_id => @place.id, :table_id => table.id), remote: true, class:"table-link " %>
+      </div>
+      <%end%>
+      
+  </div>
+  <%else%>
+  <p>No hay mesas creadas en el espacio elegido. </p>
+   <%=link_to 'Ir a configuración',shops_configuration_path, class:'btn btn-danger'%>
+
+  <%end%>
+  <%=link_to 'Agregar mesas', tables_new_path(:place_id => @place.id), class:'btn btn-primary'%>
+<%else%>
+  <h3>No hay espacios activos para mostrar, por favor vaya a configuración y cree uno</h3>
+  <%=link_to 'Ir a configuración',shops_configuration_path, class:'btn btn-danger'%>
+<%end%>
+
+</div>
+<%=link_to 'Volver al administrador', shop_admin_path , class:'btn btn-secondary'%>
+<div id="products_list"></div>
+<div id="orders_list"></div>
+<div id="product_info"></div>
+
