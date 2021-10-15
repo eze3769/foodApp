@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="bill_header">
+        <h3><%=shop.name.titleize()%></h3>
+        <hr>
+        <div class="row">
+            <div class="col ">
+                <p>Fecha: <%= booking.updated_at.strftime("%d %m %y")%></p>
+                <p>Hora: <%=booking.updated_at.localtime.strftime("%H:%M:%S") %></p>
+
+            </div>
+            <div class="col ">
+                <p>Cliente: <%= booking.user%></p>
+                <p>Teléfono: <%= booking.phone%></p>
+            </div>
+        </div>
+        <hr>
+        
+    </div>
+    <div class="bill_body">
+        <%= render 'orders/ordersTable', orders:@orders, total: @subtotal, delete:'false'%>
+    </div>
+    <div class="bill_footer">
+    
+
+
+    
+    </div>
+
+</div>

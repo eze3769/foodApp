@@ -11,34 +11,7 @@
       <%if @booking == [] then%>
         <p>No hay sesiones activas en la mesa seleccionada. Por favor inicia una ;)</p>
         <%else%>
-      <div class="cards-table">  
-          <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Cant</th>
-                  <th scope="col">Producto</th>
-                  <%# <th scope="col">Descripción</th> %>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Borrar</th>
-                </tr>
-              </thead>
-              <tbody>
-              <% @orders.each do |order|%>
-                <tr>
-                   <th scope="row"><%=order.quantity%></th>
-                   <td><%=order.product.capitalize()%></td> 
-              
-                   <td><%=order.price%></td> 
-                   <td><%=link_to 'x', orders_destroy_path(:order_id => order.id),method: 'delete', class:'btn btn-danger'%></td>
-                  
-                </tr>
-              <%end%>
-              </tbody>
-            </table>
-           <p>Subtotal: $<%=@subtotal%></p> 
-        
-     
-    </div>
+      <%= render 'ordersTable', orders:@orders, total: @subtotal, delete:'true'%>
        <%end%>
       </div>
       <div class="modal-footer">

@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
       if @product.save
         redirect_back(fallback_location: root_path, notice: "El producto fue actualizado correctamente" )
       else
-        render :new, status: :unprocessable_entity, notice:"No se pudo modificar el producto, intente más tarde."
+        render :new, status: :unprocessable_entity, alert:"No se pudo modificar el producto, intente más tarde."
       end
     end
 
@@ -37,7 +37,7 @@ class ProductsController < ApplicationController
       redirect_back(fallback_location: root_path, notice: "El producto fué borrado satisfactoriamente.")
     end
 
-    def product_modal
+    def details_modal
 
         @product_data = @shop.products.find(params[:product_data])
         
@@ -45,13 +45,16 @@ class ProductsController < ApplicationController
           format.js
         end
       end
-      def products_list_modal
+      def show_modal
         
 
         @place = @shop.places.find(params[:place_id])
         @table = @place.tables.find(params[:table_id])
         @product_list = @shop.products.all
         @booking = @table.bookings.last
+        if @booking  
+          @orders = @booking.orders 
+        end
         @state = true
         if @booking == nil then
             @state = false
@@ -59,7 +62,11 @@ class ProductsController < ApplicationController
             @state = false
         end
         @subtotal = 0
-       
+        if @orders then
+          @orders.each do |order|
+              @subtotal += order.price * order.quantity
+            end
+        end
       
         respond_to do |format|
           format.js

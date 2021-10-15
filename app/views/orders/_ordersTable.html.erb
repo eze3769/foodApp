@@ -1,0 +1,32 @@
+<div class="cards-table">  
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Cant</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Precio</th>
+                  <%if delete == 'true'%>
+                  <th scope="col">Borrar</th>
+                  <%end%>
+                </tr>
+              </thead>
+              <tbody>
+              <% orders.each do |order|%>
+                <tr>
+                   <th scope="row"><%=order.quantity%></th>
+                   <td><%=order.product.capitalize()%></td> 
+              
+                   <td><%=order.price%></td> 
+                   <%if delete == 'true'%>
+                   <td><%=link_to 'x', orders_destroy_path(:order_id => order.id),method: 'delete', class:'btn btn-danger',data:{confirm: "¿Desea eliminar el producto seleccionado?"}%></td>
+                    <%end%>
+                </tr>
+              <%end%>
+              </tbody>
+            </table>
+            <hr>
+           <p class="text-end fw-bold"><%=delete=='true' ? 'Subtotal' : 'Total'%>: $<%=total%></p> 
+        
+     
+    </div>
+  

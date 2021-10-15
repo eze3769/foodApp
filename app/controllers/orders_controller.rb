@@ -1,17 +1,16 @@
 class OrdersController < ApplicationController
     before_action :set_shop
+    before_action :set_table, only:[:show,:create,:destroy]
     
     def show
         
-        place = @shop.places.find(params[:place_id])
-        @table = place.tables.find(params[:table_id])
-        booking = @table.bookings.where(status:'open').first
+        booking = @table.bookings.last
         @orders = booking.orders
 
         @subtotal = 0
         if @orders then
             @orders.each do |order|
-                @subtotal += order.price
+                @subtotal += order.price * order.quantity
             end
         end
         respond_to do |format|
@@ -20,7 +19,6 @@ class OrdersController < ApplicationController
     end
     def create
         
-        set_table
         booking = @table.bookings.last
         product_data = @shop.products.find(params[:product_data])
 
@@ -39,7 +37,7 @@ class OrdersController < ApplicationController
     end
 
     def destroy
-        set_table
+       
         booking = @table.bookings.find(params[:booking_id])
         order = booking.orders.find(params[:order_id])
         order.destroy

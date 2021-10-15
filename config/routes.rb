@@ -33,12 +33,14 @@ Rails.application.routes.draw do
             
             
             scope '/:table_id' do
-              delete '/',to:'tables#destroy',as:'tables_destroy'
+              delete '',to:'tables#destroy',as:'tables_destroy'
 
               scope '/bookings' do
                 post '/', to:'bookings#create',as:'bookings_create'
                 post 'booking#close', to:'bookings#close',as:'bookings_close'
                 scope ':booking_id' do
+                  patch '/', to:'bookings#update', as:'bookings_update'
+                  get '/edit',to:'bookings#edit',as:'bookings_edit'
                   scope '/orders' do
                     post '/',to:'orders#create',as:'orders_create'
                     get '/show#order', to:'orders#show', as:'orders_show'
@@ -56,8 +58,8 @@ Rails.application.routes.draw do
       scope 'products' do  
         get 'new', to:'products#new',as:'products_new'
         post '/', to:'products#create',as:'products_create'
-        get '/modal/listmodal',to:'products#products_list_modal',as:'products_list_modal'
-        get '/modal/:product_data',to:'products#product_modal',as:'product_modal'
+        get '/modal/listmodal',to:'products#show_modal',as:'products_list_modal'
+        get '/modal/:product_data',to:'products#details_modal',as:'product_modal'
         
 
         scope ':product_id' do

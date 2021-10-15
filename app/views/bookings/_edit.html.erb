@@ -1,0 +1,11 @@
+<%= form_with model:@booking, url:url, method: 'patch' do |form|%>
+              <%= form.label :user, "Nombre", class:"form-label" %>
+              <%= form.text_field :user, class:"form-control"%>
+              <%= form.label :phone, "Teléfono", class:"form-label" %>
+              <%= form.telephone_field :phone, class:"form-control"%>
+              <%= form.label :address, "Domicilio", class:"form-label" %>
+              <%= form.text_field :address, class:"form-control"%>
+              <%= form.label :email, "Email", class:"form-label" %>
+              <%= form.email_field :email, class:"form-control"%>
+              <%= form.submit 'Guardar datos', class:"btn btn-primary","data-bs-toggle"=>"collapse", "data-bs-target"=>".collapse"%>
+              <%end%>

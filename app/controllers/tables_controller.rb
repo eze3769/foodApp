@@ -2,17 +2,22 @@ class TablesController < ApplicationController
     before_action :set_place, only:[:new,:create,:batch_create,:destroy]
 
     def new
+        @tables = @place.tables.sort{|a,b| a.name <=> b.name }
         @table = @place.tables.new
-        range = {from:0,to:0}
     end
     def create
+        @tables = @place.tables
         @table = @place.tables.new(table_params)
-
-        if @table.save
-          redirect_to shops_tables_manager_path, notice: "La mesa fué agregado satisfactoriamente."
+        if !@tables.find_by(:name =>@table.name) then
+            if @table.save
+                redirect_to tables_new_path, notice: "La mesa #{@table.name} fué creada correctamente."
+              else
+                render :new, status: :unprocessable_entity 
+              end
         else
-          render :new, status: :unprocessable_entity 
+            redirect_to tables_new_path, alert: "La mesa #{@table.name} ya existe."
         end
+        
     end
     def batch_create
         @table = @place.tables
@@ -22,9 +27,8 @@ class TablesController < ApplicationController
         table_list = []
         existing_tables = []
         for i in (from.. to) do
-            if !@table.find_by_name(i) then
-                @table.create(name: i)
-                puts i
+            if !@table.find_by(:name =>i) then
+                @table.create!(name: i)
                 table_list.push(i)
             else
                 existing_tables.push(i)
@@ -42,14 +46,16 @@ class TablesController < ApplicationController
         error_msg = "Las mesas "+tables_exists +" ya existen."
         message = tables_msg + " #{if existing_tables != [] then error_msg end}"
 
-        redirect_to shops_tables_manager_path, notice: message
+        redirect_to shops_tables_manager_path(:place_id =>@place.id), notice: message
           
     end
     def edit
 
     end
     def destroy
-
+        @table = @place.tables.find(params[:table_id])
+        @table.destroy
+        redirect_to tables_new_path, notice: "La mesa fué borrada satisfactoriamente."
     end
 
     private
