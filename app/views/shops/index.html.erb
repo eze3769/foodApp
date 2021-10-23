@@ -6,9 +6,11 @@
   <div class="card-body">
     <h5 class="card-title"><%=shop.name.titleize%></h5>
     <p class="card-text"><%=shop.category.capitalize %> local</p>
-     <%= link_to 'Go to local', shop_show_path(shop.nick), class:"btn btn-primary" %>
+     <%= link_to 'Ir al negocio', shop_show_path(shop.nick), class:"btn btn-primary" %>
   </div>
 </div>
 
 <%end%>
+
+<%= link_to 'Registrar mi negocio', shop_new_path, class:"btn btn-danger"%>
 

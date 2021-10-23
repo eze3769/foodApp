@@ -1,6 +1,5 @@
 class BookingsController < ApplicationController
-    before_action :set_shop, :set_place, :set_table, only: [:create,:close, :update, :edit]
-    before_action :set_booking, only: [:close, :update, :edit]
+    before_action :set_booking, only: [:close, :update, :edit, :create]
     def create 
         @booking = @table.bookings.new 
         @booking.status = 'open'
@@ -12,6 +11,23 @@ class BookingsController < ApplicationController
             redirect_back(fallback_location: root_path , alert:"No se pudo modificar el producto, intente más tarde.")
         end
     end
+
+    def index
+        @shop = Shop.find_by_nick(params[:shop_nick])
+        @places = @shop.places
+        
+        if @places then
+            @bookings = []
+            @places.each do |place|
+                place.tables.each do |table|
+                    @bookings += table.bookings
+                end
+            end
+        end
+        
+        
+    end
+
     def edit
 
     end
@@ -27,6 +43,11 @@ class BookingsController < ApplicationController
 
     def close
         set_booking
+        @subtotal = 0
+        @booking.orders.each do |order|
+            @subtotal += order.price * order.quantity
+        end
+        
         @booking.status = 'closed'
         @booking.total = @subtotal
         @booking.save
@@ -35,16 +56,11 @@ class BookingsController < ApplicationController
     end
 
     private
-    def set_shop
-        @shop = Shop.find_by_nick(params[:shop_nick])
-    end
-    def set_place
-        @place = @shop.places.find(params[:place_id])
-    end
-    def set_table
-        @table = @place.tables.find(params[:table_id])
-    end
+   
     def set_booking
+        @shop = Shop.find_by_nick(params[:shop_nick])
+        @place = @shop.places.find(params[:place_id])
+        @table = @place.tables.find(params[:table_id])
         @booking = @table.bookings.find_by_status('open')
     end
     def booking_params

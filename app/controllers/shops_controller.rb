@@ -44,8 +44,12 @@ before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :tables
     else
         @place = @shop.places.first
     end
-    @tables = @place.tables.sort{|a,b| a.name <=> b.name }
-    
+    if @place then
+      @tables = @place.tables
+      if @tables then
+        @tables = @place.tables.sort{|a,b| a.name <=> b.name }
+      end
+    end
    
   end
   def configuration

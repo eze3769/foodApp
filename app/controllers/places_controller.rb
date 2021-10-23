@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-before_action :set_shop, only:[:new]
+before_action :set_shop, only:[:new,:create]
 before_action :set_place, only:[:show,:edit,:update,:destroy]
     def index
     end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get '/', to:'shops#admin', as:'shop_admin'
       get '/configuration',to:'shops#configuration',as:'shops_configuration'
       get '/tablesmanager', to:'shops#tables_manager', as:'shops_tables_manager'
-
+      get '/bookings', to: 'bookings#index',as:'bookings_index'
 
       scope 'places' do
         get '/new', to:'places#new',as:'places_new'
