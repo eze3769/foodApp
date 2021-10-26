@@ -6,9 +6,13 @@ class BookingsController < ApplicationController
 
 
         if @booking.save
-            redirect_back(fallback_location: root_path , notice: "La sesión en la mesa #{@table.name} fué abierta satisfactoriamente.")
+            # redirect_back(fallback_location: root_path , notice: "La sesión en la mesa #{@table.name} fué abierta satisfactoriamente.")
+            respond_to do |format|
+                
+                format.js { redirect_to products_list_modal_path(:place_id => params[:place_id],:table_id => @table.id) }
+            end
         else
-            redirect_back(fallback_location: root_path , alert:"No se pudo modificar el producto, intente más tarde.")
+            redirect_back(fallback_location: root_path , alert:"No se pudo guardar la reserva, intente más tarde.")
         end
     end
 
@@ -35,9 +39,9 @@ class BookingsController < ApplicationController
         set_booking
         @booking.update(booking_params)
       if @booking.save
-         redirect_back(fallback_location: root_path, notice: "El producto fue actualizado correctamente" )
+         redirect_back(fallback_location: root_path, notice: "La reserva fue actualizado correctamente" )
       else
-        render :new, status: :unprocessable_entity, alert:"No se pudo modificar el producto, intente más tarde."
+        render :new, status: :unprocessable_entity, alert:"No se pudo modificar la reserva, intente más tarde."
       end
     end
 

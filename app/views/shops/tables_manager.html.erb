@@ -1,13 +1,15 @@
 <%= render 'commons/navbar', shop:@shop%>
 
 <div class="container">
-<div class="border p-4 m-2">
+<div data-controller="placeSelect" class="border p-4 m-2">
 <%if @place != nil %>
-  <%= form_with(url: shops_tables_manager_path(:place_id => @place.id), method: "get",name: "place_form") do |form|  %>
-    <%= form.label :place_id, "Elegir sector:" %>
-    <%= form.collection_select :place_id, @shop.places, :id, :name ,selected: @place.id, class:"form-select" %>
-    <%= form.submit "Ver",class:"btn btn-primary" %>
-  <% end %>
+  <select data-placeSelect-target="value" class="form-select" aria-label="Default select example" data-action="change->placeSelect#placeLoad">
+    <%=@shop.places.each do |place|%>
+      <option  value=<%=shops_tables_manager_path(:place_id => place.id)%>  <%=if place.id== @place.id then "selected" end%>><%=place.name%></option>
+    
+    <%end%>
+  </select>
+
   <p>Descripción: <%=@place.description.capitalize()%></p>
 
   <%if @tables != []%>
@@ -33,7 +35,7 @@
 <%=link_to 'Volver al administrador', shop_admin_path , class:'btn btn-secondary'%>
 </div>
 
-<div id="products_list"></div>
+<div id="products_list" data-controller="ajax" data-ajax-target="modalContent"></div>
 <div id="orders_list"></div>
 <div id="product_info"></div>
 

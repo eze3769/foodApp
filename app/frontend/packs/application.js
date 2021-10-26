@@ -9,10 +9,15 @@ import * as ActiveStorage from "@rails/activestorage"
 import '../js/bootstrap_js_files.js'
 import './index.js'
 import "channels"
+import { Application } from "@hotwired/stimulus"
+import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 
 
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+window.Stimulus = Application.start()
 window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
+const context = require.context("./controllers", true, /\.js$/)
+Stimulus.load(definitionsFromContext(context))

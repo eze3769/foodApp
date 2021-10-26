@@ -1,6 +1,6 @@
 
 
-<div class="modal fade" id="products-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div   data-controller="ajax" class="modal fade" id="products-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body ">
-      <div  id="modal-container" class="cards-table">
+      <div  id="modal-container" class="cards-table" data-ajax-target="url" ref=<%=products_list_modal_path(:place_id => @place.id, :table_id => @table.id)%>>
       <%if @state == false %>
         <%if @booking != nil%>
           
@@ -51,6 +51,7 @@
       </div>
       <div class="modal-footer">
       <%if @state == false%>
+        
        <%= button_to 'Abrir cuenta', bookings_create_path( :place_id => @place.id, :table_id=> @table.id) , method:'post', remote: true, class:"btn btn-warning",data:{confirm:"¿Confirma que desea abrir la sesión en la mesa #{@table.name}?"}  %>
        <%else%>
       <%= link_to 'Ver pedidos', orders_show_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id), remote: true, class:"btn btn-primary" %>
