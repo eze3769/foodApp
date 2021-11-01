@@ -31,7 +31,7 @@ before_action :set_place, only:[:show,:edit,:update,:destroy]
         if @place.save
           redirect_back(fallback_location: root_path, notice: "El espacio fue actualizado correctamente" )
         else
-          render :new, status: :unprocessable_entity, notice:"No se pudo modificar el espacio, intente más tarde."
+          render :new, status: :unprocessable_entity, alert:"No se pudo modificar el espacio, intente más tarde."
         end
       end
   

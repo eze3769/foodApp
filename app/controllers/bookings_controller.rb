@@ -3,16 +3,13 @@ class BookingsController < ApplicationController
     def create 
         @booking = @table.bookings.new 
         @booking.status = 'open'
-
+        @product_list = @shop.products
 
         if @booking.save
-            # redirect_back(fallback_location: root_path , notice: "La sesión en la mesa #{@table.name} fué abierta satisfactoriamente.")
-            respond_to do |format|
-                
-                format.js { redirect_to products_list_modal_path(:place_id => params[:place_id],:table_id => @table.id) }
-            end
+            redirect_back(fallback_location: root_path , notice: "La sesión en la mesa #{@table.name} fué abierta satisfactoriamente.")
+            
         else
-            redirect_back(fallback_location: root_path , alert:"No se pudo guardar la reserva, intente más tarde.")
+            render :new, status: :unprocessable_entity, alert:"No se pudo guardar la reserva, intente más tarde."
         end
     end
 
@@ -54,9 +51,14 @@ class BookingsController < ApplicationController
         
         @booking.status = 'closed'
         @booking.total = @subtotal
-        @booking.save
+        
+        if @booking.save
+            redirect_back(fallback_location: root_path, notice: "La reserva de la mesa #{@table.name} fue cerrada satisfactoriamente" )
+         else
+           render :new, status: :unprocessable_entity, alert:"No se pudo modificar la reserva de la mesa #{@table.name}, intente más tarde."
+         end
 
-        redirect_back(fallback_location: root_path , notice: "La mesa #{@table.name} fué cerrada satisfactoriamente.")
+       
     end
 
     private

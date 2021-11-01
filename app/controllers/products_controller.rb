@@ -45,33 +45,35 @@ class ProductsController < ApplicationController
           format.js
         end
       end
-      def show_modal
+      # DELETE after implement new features
+    
+      # def show_modal
         
 
-        @place = @shop.places.find(params[:place_id])
-        @table = @place.tables.find(params[:table_id])
-        @product_list = @shop.products.all
-        @booking = @table.bookings.last
-        if @booking  
-          @orders = @booking.orders 
-        end
-        @state = true
-        if @booking == nil then
-            @state = false
-        elsif @booking.status == "closed" then
-            @state = false
-        end
-        @subtotal = 0
-        if @orders then
-          @orders.each do |order|
-              @subtotal += order.price * order.quantity
-            end
-        end
+      #   @place = @shop.places.find(params[:place_id])
+      #   @table = @place.tables.find(params[:table_id])
+      #   @product_list = @shop.products.all
+      #   @booking = @table.bookings.last
+      #   if @booking  
+      #     @orders = @booking.orders 
+      #   end
+      #   @state = true
+      #   if @booking == nil then
+      #       @state = false
+      #   elsif @booking.status == "closed" then
+      #       @state = false
+      #   end
+      #   @subtotal = 0
+      #   if @orders then
+      #     @orders.each do |order|
+      #         @subtotal += order.price * order.quantity
+      #       end
+      #   end
       
-        respond_to do |format|
-          format.js
-        end
-      end
+      #   respond_to do |format|
+      #     format.js
+      #   end
+      #end
 
       private 
 

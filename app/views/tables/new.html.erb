@@ -1,3 +1,7 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
+
 <div class="container mb-3">
     <% if @table.errors.any? %>
     <div id="error_explanation">

@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+
 #error_explanation{
     display: flex;
     background-color: aquamarine;
@@ -22,4 +24,12 @@
 }
 .btn{
     margin: 10px auto;
+}
+.offcanvas {
+    top: 74px;
+    width: 250px;
+}
+.offcanvas-start {
+    top: 74px;
+    width: 250px;
 }

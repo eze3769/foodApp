@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/show'
+  get 'categories/edit'
+  get 'categories/create'
+  get 'categories/update'
+  get 'categories/delete'
   root 'shops#index'
 
   scope 'shops' do
@@ -12,7 +18,7 @@ Rails.application.routes.draw do
     scope '/admin' do
       get '/', to:'shops#admin', as:'shop_admin'
       get '/configuration',to:'shops#configuration',as:'shops_configuration'
-      get '/tablesmanager', to:'shops#tables_manager', as:'shops_tables_manager'
+      get '/manager', to:'shops#manager', as:'shops_manager'
       get '/bookings', to: 'bookings#index',as:'bookings_index'
 
       scope 'places' do
@@ -33,7 +39,8 @@ Rails.application.routes.draw do
             
             
             scope '/:table_id' do
-              delete '',to:'tables#destroy',as:'tables_destroy'
+              get '/',to:'tables#show',as:'tables_show'
+              delete '/',to:'tables#destroy',as:'tables_destroy'
 
               scope '/bookings' do
                 post '/', to:'bookings#create',as:'bookings_create'
@@ -41,7 +48,9 @@ Rails.application.routes.draw do
                 scope ':booking_id' do
                   patch '/', to:'bookings#update', as:'bookings_update'
                   get '/edit',to:'bookings#edit',as:'bookings_edit'
+
                   scope '/orders' do
+                    get 'new', to: 'orders#new',as:'orders_new'
                     post '/',to:'orders#create',as:'orders_create'
                     get '/show#order', to:'orders#show', as:'orders_show'
                     delete '/:order_id',to:'orders#destroy',as:'orders_destroy'
@@ -58,7 +67,6 @@ Rails.application.routes.draw do
       scope 'products' do  
         get 'new', to:'products#new',as:'products_new'
         post '/', to:'products#create',as:'products_create'
-        get '/modal/listmodal',to:'products#show_modal',as:'products_list_modal'
         get '/modal/:product_data',to:'products#details_modal',as:'product_modal'
         
 

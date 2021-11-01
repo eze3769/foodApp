@@ -18,7 +18,7 @@
               
                    <td><%=order.price%></td> 
                    <%if delete == 'true'%>
-                   <td><%=link_to 'x', orders_destroy_path(:order_id => order.id),method: 'delete', class:'btn btn-danger',data:{confirm: "¿Desea eliminar el producto seleccionado?"}%></td>
+                   <td><%=link_to 'x', orders_destroy_path(:order_id => order.id, :booking_id => @booking.id),method: 'delete', class:'btn btn-danger',data:{confirm: "¿Desea eliminar el producto seleccionado?"}%></td>
                     <%end%>
                 </tr>
               <%end%>

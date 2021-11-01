@@ -1,7 +1,9 @@
 <%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
 <div class="container">
     <h2>Administrador de <%=@shop.name.titleize%></h2>
-        <%=link_to 'Gestor de local', shops_tables_manager_path, class:"btn btn-primary"%>
+        <%=link_to 'Gestor de local', shops_manager_path, class:"btn btn-primary"%>
     <%if @shop.places == []%>
         <p>Antes de operar debe terminar de configurar su negocio</p>
         

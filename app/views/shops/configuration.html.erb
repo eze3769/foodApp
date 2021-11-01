@@ -1,8 +1,10 @@
 
 <%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
 <div class="container">
 <h3>Panel de control</h3>
-<div class="d-flex flex-row ">
+<div class="d-flex flex-row flex-wrap">
   <div class="m-2 p-5 border">
     <h5>Espacios Generados</h5>
     <%if @shop.places == []%>
@@ -37,8 +39,9 @@
 </table>
         
     <%end%>
-<%=link_to 'Agregar espacio', places_new_path,class:"btn btn-danger"%>
-</div>
+    <%=link_to 'Agregar espacio', places_new_path,class:"btn btn-danger"%>
+  </div>
+
 
 <div class="m-2 p-5 border">
     <h5>Productos:</h5>
@@ -70,6 +73,12 @@
     <%end%>
     <%=link_to 'Agregar producto', products_new_path,class:"btn btn-danger"%>
 </div>
+  <div class="m-2 p-5 border">
+    <h5>Categorias:</h5>
+      <% @shop.categories.each do |category|%>
+        <p>- <%=category.name.capitalize()%></p>
+      <%end%>
+  </div>
 </div>
 <%=link_to 'Volver al administrador', shop_admin_path(@shop.nick),class:'btn btn-secondary' %>
 </div>

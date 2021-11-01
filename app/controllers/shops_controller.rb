@@ -1,5 +1,5 @@
 class ShopsController < ApplicationController
-before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :tables_manager]
+before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :manager]
 
   def index
     @shops = Shop.all  
@@ -37,7 +37,7 @@ before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :tables
     
   end
 
-  def tables_manager
+  def manager
         
     if params[:place_id]
         @place = @shop.places.find(params[:place_id])

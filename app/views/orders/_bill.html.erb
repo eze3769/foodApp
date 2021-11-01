@@ -4,7 +4,7 @@
         <hr>
         <div class="row">
             <div class="col ">
-                <p>Fecha: <%= booking.updated_at.strftime("%d %m %y")%></p>
+                <p>Fecha: <%= booking.updated_at.localtime.strftime("%d %m %y")%></p>
                 <p>Hora: <%=booking.updated_at.localtime.strftime("%H:%M:%S") %></p>
 
             </div>

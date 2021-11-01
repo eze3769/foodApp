@@ -1,0 +1,38 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
+<h1>Mesa <%=@table.name%></h1>
+<div  id="modal-container" class="cards-table">
+ <%if @state == false %>
+        <%if @booking != nil%>
+          <h3>Mesa Cerrada</h3>
+          <p>Ticket:</p>
+            <%=render '/orders/bill', booking: @booking, shop:@shop%>
+          <%else%>
+            <p>Esta mesa aún no tuvo ventas.</p>
+          <%end%>
+      <%else%>
+      <div class="container row justify-content-around">
+        <h3>Pedidos</h3>
+        <%if @booking == [] then%>
+            <p>No hay sesiones activas en la mesa seleccionada. Por favor inicia una ;)</p>
+        <%else%>
+            <%= render '/orders/ordersTable', orders:@orders, total: @subtotal, delete:'true'%> 
+        <%end%>
+     </div>
+      
+      
+      <%end%>
+        
+    </div>
+    <div>
+        <%if @state == false%>
+        
+            <%= button_to 'Abrir cuenta', bookings_create_path( :place_id => @place.id, :table_id=> @table.id) , method:'post',  class:"btn btn-warning",data:{reflex:"submit#submit" ,confirm:"¿Confirma que desea abrir la sesión en la mesa #{@table.name}?"}  %>
+        <%else%>
+            <%= link_to 'Agregar pedidos', orders_new_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id), class:"btn btn-primary" %>
+            <%= link_to 'Cerrar cuenta', bookings_close_path(:table_id => @table.id,:place_id => @place.id), class:"btn btn-danger", :method => :post, data:{confirm:"¿Confirma que desea cerrar la sesión en la mesa #{@table.name}?"} %>
+        <%end%>
+        
+    </div>
+    <%=link_to 'Volver a selección de mesas', shops_manager_path(:place_id => @place.id), class:"btn btn-secondary" %>

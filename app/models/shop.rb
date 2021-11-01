@@ -1,6 +1,7 @@
 class Shop < ApplicationRecord
     has_many :products
     has_many :places
+    has_many :categories
     has_one_attached :background
 
 

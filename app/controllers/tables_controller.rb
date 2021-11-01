@@ -1,9 +1,29 @@
 class TablesController < ApplicationController
-    before_action :set_place, only:[:new,:create,:batch_create,:destroy]
+    before_action :set_place, only:[:new,:show, :create,:batch_create,:destroy]
 
     def new
         @tables = @place.tables.sort{|a,b| a.name <=> b.name }
         @table = @place.tables.new
+    end
+    def show
+        @place = @shop.places.find(params[:place_id])
+        @table = @place.tables.find(params[:table_id])
+        @booking = @table.bookings.last
+        if @booking  
+          @orders = @booking.orders 
+        end
+        @state = true
+        if @booking == nil then
+            @state = false
+        elsif @booking.status == "closed" then
+            @state = false
+        end
+        @subtotal = 0
+        if @orders then
+          @orders.each do |order|
+              @subtotal += order.price * order.quantity
+            end
+        end
     end
     def create
         @tables = @place.tables

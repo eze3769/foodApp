@@ -1,11 +1,12 @@
 <%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
 
 <div class="container">
 <div data-controller="placeSelect" class="border p-4 m-2">
 <%if @place != nil %>
   <select data-placeSelect-target="value" class="form-select" aria-label="Default select example" data-action="change->placeSelect#placeLoad">
     <%=@shop.places.each do |place|%>
-      <option  value=<%=shops_tables_manager_path(:place_id => place.id)%>  <%=if place.id== @place.id then "selected" end%>><%=place.name%></option>
+      <option  value=<%=shops_manager_path(:place_id => place.id)%>  <%=if place.id== @place.id then "selected" end%>><%=place.name%></option>
     
     <%end%>
   </select>
@@ -17,7 +18,7 @@
   <div class="table_list">
     <% @tables.each do |table| %>
      
-        <%= link_to table.name, products_list_modal_path(:place_id => @place.id, :table_id => table.id), remote: true, class:" table_style #{table.bookings.where(status:'open')==[] ? 'non-active-table' : 'active-table'}" %>
+        <%= link_to table.name, tables_show_path(:place_id => @place.id, :table_id => table.id), class:" table_style #{table.bookings.where(status:'open')==[] ? 'non-active-table' : 'active-table'}" %>
       
       <%end%>
       
@@ -34,8 +35,11 @@
 </div>
 <%=link_to 'Volver al administrador', shop_admin_path , class:'btn btn-secondary'%>
 </div>
+ <div data-controller="hello">
+   <h1 data-hello-target="output"></h1>
+</div>
 
-<div id="products_list" data-controller="ajax" data-ajax-target="modalContent"></div>
+<div id="products_list"></div>
 <div id="orders_list"></div>
 <div id="product_info"></div>
 
