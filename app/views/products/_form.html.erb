@@ -18,8 +18,11 @@
 
         <%= form.label :price, "Precio", class:"form-label" %>
         <%= form.number_field :price, step: 1, class:"form-control" %>
-        <%= form.label :category, "Categoría" , class:"form-label"%>
-        <%= form.text_field :category, class:"form-control"%>
+        <div>
+          <%= form.label :category, "Categoría" , class:"form-label"%>
+          <%= form.collection_select :category, @categories, :name, :name, options={class:"form-control"}%>
+        </div>
+        
   
     <%= form.label :description, "Descripción" , class:"form-label"%>
     <%= form.text_field :description, class:"form-control"%>

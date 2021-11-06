@@ -1,18 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid ">
-    <%=link_to shop.name.capitalize(), shop_show_path(shop.nick) %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
- Menú
-</button>
-        </li>
+    
+          <button class="btn-secondary btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasMenu" aria-controls="canvasMenu">
+            <span class="navbar-toggler-icon"></span>
+            Menú
+          </button>
        
-      </ul>
-    </div>
+    
+    <%=link_to shop.name.capitalize(), shop_show_path(shop.nick), class:"mainTitle"%>
   </div>
 </nav>

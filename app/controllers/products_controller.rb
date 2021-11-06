@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     end
 
     def edit
-      
+      @categories = @shop.categories
     end
 
     def update

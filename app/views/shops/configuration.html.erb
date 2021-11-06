@@ -54,7 +54,7 @@
           <div class="card" style="width: 10rem;">
           <div class="d-flex align-self-center justify-content-center">
           <%if product.image.attached?%>
-           <%=  image_tag(product.image, :alt => "comida", class:"product_img") %>
+           <%=  image_tag(product.image, :alt => product.name, class:"product_img") %>
            <%end%>
           </div>
            
@@ -75,9 +75,13 @@
 </div>
   <div class="m-2 p-5 border">
     <h5>Categorias:</h5>
-      <% @shop.categories.each do |category|%>
-        <p>- <%=category.name.capitalize()%></p>
+      <div>
+        <% @shop.categories.each do |category|%>
+         <%=link_to category.name.capitalize(), categories_edit_path(:category_id => category.id)%>
       <%end%>
+      </div>
+      
+      <%=link_to 'Administrar categorías', categories_index_path, class:"btn btn-success"%>
   </div>
 </div>
 <%=link_to 'Volver al administrador', shop_admin_path(@shop.nick),class:'btn btn-secondary' %>

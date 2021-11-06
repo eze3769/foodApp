@@ -26,13 +26,13 @@ class OrdersController < ApplicationController
         
         product_data = @shop.products.find(params[:product_data])
 
-        if @booking.orders.find_by(:product =>product_data.name) then
-            order = @booking.orders.find_by(:product =>product_data.name)
-            order.quantity += 1
-        else
-        new_product = {product:product_data.name,quantity:1,price:product_data.price}
+        # if @booking.orders.find_by(:product =>product_data.name) then
+        #     order = @booking.orders.find_by(:product =>product_data.name)
+        #     order.quantity += 1
+        # else
+        new_product = {product:product_data.name,quantity:1,price:product_data.price,status:'Pendiente'}
         order = @booking.orders.new(new_product)
-        end
+        # end
 
         if order.save then
             redirect_back(fallback_location: root_path , notice: "#{product_data.name.capitalize()} fue agregado satisfactoriamente a la mesa #{@table.name} ")

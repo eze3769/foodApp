@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  get 'categories/index'
-  get 'categories/show'
-  get 'categories/edit'
-  get 'categories/create'
-  get 'categories/update'
-  get 'categories/delete'
+  
   root 'shops#index'
 
   scope 'shops' do
@@ -77,6 +72,17 @@ Rails.application.routes.draw do
           get '/edit',to:'products#edit',as:'products_edit'
         end
       end
+
+      scope 'categories' do
+        get '/', to:'categories#index', as:'categories_index'
+        scope '/:category_id' do
+          get 'edit',to:'categories#edit', as:'categories_edit'
+          patch '/', to:'categories#update', as: 'categories_update'
+          delete '/', to:'categories#destroy', as: 'categories_destroy'
+        end
+      end
+
+      get 'kitchen',to:"shops#kitchen",as:"shops_kitchen"
     end
 
   end

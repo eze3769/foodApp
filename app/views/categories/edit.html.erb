@@ -1,2 +1,30 @@
-<h1>Categories#edit</h1>
-<p>Find me in app/views/categories/edit.html.erb</p>
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
+<div class="container mb-3">
+<% if @category.errors.any? %>
+  <div id="error_explanation">
+    <h5> No se puede guardar la categoría:</h5>
+
+    <ul>
+      <% @category.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @category, method: 'patch', url: categories_update_path do |form| %>
+
+    <%= form.label :name, "Nombre de la categoría", class:"form-label" %>
+    <%= form.text_field :name, class:"form-control"%>
+  
+    <%= form.label :description, "Descripción" , class:"form-label"%>
+    <%= form.text_field :description, class:"form-control"%>
+    <%= form.submit %>
+
+  <% end %>
+    <%= link_to 'Borrar categoría', categories_destroy_path(:category_id =>@category.id),method:'delete',class:"btn btn-danger" ,data:{confirm:"¿Está seguro que desea eliminar la categoría?. Los productos que la contienen seguiran usandola, sólo no podrá agregar nuevos."}%>
+    </div>
+
+    <%=link_to 'Volver', shops_configuration_path, class:"btn btn-secondary"%>

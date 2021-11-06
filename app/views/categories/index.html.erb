@@ -1,4 +1,12 @@
-<% @categories.each do |category|%>
-
-    <p>	<%=category.name%></p>
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+<div class="container">
+    <% @categories.each do |category|%>
+    <div >
+        <p>	<%=category.name%></p>
+        <%=link_to "Editar",categories_edit_path(:category_id => category.id), class:"btn btn-success"%>
+        <%=link_to "Borrar",categories_destroy_path(:category_id => category.id), class:"btn btn-danger"%>
+    </div>
+    
 <%end%>
+</div>
