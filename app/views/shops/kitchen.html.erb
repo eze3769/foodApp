@@ -3,12 +3,15 @@
 
 <div class="container">
    <ul class="orders_notes">
-    <%=Order.find_by_shop(:Shop =>@shop).each do |order|%>
+    <%@shop.orders.each do |order|%>
         <li>
-            <a href="#">
-            <h2>Order <%=order.id%></h2>
-            <p> <%=order.product%></p>
-            </a>
+            <div class="stickynote_header" data-controller="kitchen">
+                <h2>Orden #<%=order.id%> <span id="prepareCounter" ref='<%=order.created_at.localtime%>' data-kitchen-target="output"> </span></h2>
+
+            </div>
+            
+            <p><%=order.quantity.to_int%> <%=order.product%></p>
+            
         </li>
     <%end%>
     </ul>
