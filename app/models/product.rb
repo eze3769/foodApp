@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
 
-
+  has_many :items
   belongs_to :shop
 
   has_one_attached :image

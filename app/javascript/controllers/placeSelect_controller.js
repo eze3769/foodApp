@@ -10,6 +10,6 @@ export default class extends Controller {
     return this.valueTarget.value
 }
   placeLoad() {
-    window.location = this.value
+    Turbolinks.visit(this.value)
   }
 }

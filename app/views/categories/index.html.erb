@@ -1,12 +1,19 @@
 <%= render 'commons/navbar', shop:@shop%>
 <%= render 'commons/sideMenu', shop:@shop %>
 <div class="container">
-    <% @categories.each do |category|%>
-    <div >
-        <p>	<%=category.name%></p>
-        <%=link_to "Editar",categories_edit_path(:category_id => category.id), class:"btn btn-success"%>
-        <%=link_to "Borrar",categories_destroy_path(:category_id => category.id), class:"btn btn-danger"%>
-    </div>
-    
+    <%if @categories != [] then%> 
+        <% @categories.each do |category|%>
+            <div >
+                <p>	<%=category.name%></p>
+                <%=link_to "Editar",categories_edit_path(:category_id => category.id), class:"btn btn-success"%>
+                <%=link_to "Borrar",categories_destroy_path(:category_id => category.id), class:"btn btn-danger"%>
+            </div>
+        <%end%>
+    <%else%>
+    <p>No hay categorias para mostrar</p>
+
 <%end%>
+    <%=link_to 'Agregar Categoria', categories_new_path, class:'btn btn-primary' %>
+
+    <%=link_to 'Volver a configuraciones', shops_configuration_path, class:"btn btn-secondary"%>
 </div>

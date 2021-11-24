@@ -1,0 +1,38 @@
+<div class="container products_search">
+  <div >
+    
+    <% categories.each do |category|%>
+      <h5><%=category.name.capitalize()%></h5>
+      <%if product.where(:category => category.name) == [] then%>
+        <p>No hay coincidencias</p>
+      <%else%>
+        <% product.where(:category => category.name).each do |product|%>
+        <div class="product_card">
+          <div >
+            <%= image_tag("food_icon.png", :alt => "comida", class:"product_img") %>
+          </div>
+
+          <div>
+            <h5 class="product_card-title "><%= product.name.capitalize()%></h5>
+          </div>
+          <div >
+            <div data-controller="orders_generator">
+              <%= form_with model:@item, method: 'post', url: items_create_path(:order_id =>@order, :product_id => product.id) do |form| %> 
+
+                <div class="orders_generator-form">
+                  <%= form.number_field :quantity, class:"form-control product_input-quantity", value: 1%> 
+                  <%= form.submit 'Agregar',class:'btn btn-primary'%>   
+                </div>
+
+              <%end%>
+
+            </div>
+
+          </div>
+        </div>
+        <%end%>
+      <%end%>
+    <%end%>
+  </div>
+</div>
+        

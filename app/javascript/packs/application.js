@@ -16,6 +16,7 @@ import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+window.Rails = require("@rails/ujs")
 window.Stimulus = Application.start()
 window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
 import '../bootstrap/bootstrap_js_files.js'

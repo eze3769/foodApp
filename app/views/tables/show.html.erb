@@ -17,7 +17,7 @@
         <%if @booking == [] then%>
             <p>No hay sesiones activas en la mesa seleccionada. Por favor inicia una ;)</p>
         <%else%>
-            <%= render '/orders/ordersTable', orders:@orders, total: @subtotal, delete:'true'%> 
+             <%= render '/orders/ordersTable', orders:@orders, total: @subtotal, delete:'true'%> 
         <%end%>
      </div>
       
@@ -30,7 +30,7 @@
         
             <%= button_to 'Abrir cuenta', bookings_create_path( :place_id => @place.id, :table_id=> @table.id) , method:'post',  class:"btn btn-warning",data:{reflex:"submit#submit" ,confirm:"¿Confirma que desea abrir la sesión en la mesa #{@table.name}?"}  %>
         <%else%>
-            <%= link_to 'Agregar pedidos', orders_new_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id), class:"btn btn-primary" %>
+            <%= link_to 'Agregar pedidos', orders_create_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id),:method => :post, class:"btn btn-primary" %>
             <%= link_to 'Cerrar cuenta', bookings_close_path(:table_id => @table.id,:place_id => @place.id), class:"btn btn-danger", :method => :post, data:{confirm:"¿Confirma que desea cerrar la sesión en la mesa #{@table.name}?"} %>
         <%end%>
         

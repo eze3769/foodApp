@@ -2,6 +2,7 @@ class Shop < ApplicationRecord
     has_many :products
     has_many :places
     has_many :categories
+    has_many :employeers
     has_many :tables, through: :places
     has_many :bookings, through: :tables
     has_many :orders, through: :bookings

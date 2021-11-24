@@ -19,11 +19,11 @@ class TablesController < ApplicationController
             @state = false
         end
         @subtotal = 0
-        if @orders then
-          @orders.each do |order|
-              @subtotal += order.price * order.quantity
-            end
-        end
+        # if @orders then
+        #   @orders.each do |order|
+        #       @subtotal += order.price * order.quantity
+        #     end
+        # end
     end
     def create
         @tables = @place.tables

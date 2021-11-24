@@ -35,6 +35,7 @@ Rails.application.routes.draw do
             
             scope '/:table_id' do
               get '/',to:'tables#show',as:'tables_show'
+              get 'edit',to:'tables#edit',as:'tables_edit'
               delete '/',to:'tables#destroy',as:'tables_destroy'
 
               scope '/bookings' do
@@ -45,10 +46,19 @@ Rails.application.routes.draw do
                   get '/edit',to:'bookings#edit',as:'bookings_edit'
 
                   scope '/orders' do
-                    get 'new', to: 'orders#new',as:'orders_new'
+                    
                     post '/',to:'orders#create',as:'orders_create'
-                    get '/show#order', to:'orders#show', as:'orders_show'
-                    delete '/:order_id',to:'orders#destroy',as:'orders_destroy'
+                    
+                    
+                    scope '/:order_id' do
+                      get '/', to:'orders#show', as:'orders_show'
+                      delete '/',to:'orders#destroy',as:'orders_destroy'
+                      get 'new(:search)', to: 'orders#new',as:'orders_new'
+
+                      scope 'items' do
+                        post '/', to:'items#create', as:'items_create'
+                      end
+                    end
                   end
                 end
               end
@@ -59,6 +69,18 @@ Rails.application.routes.draw do
         end
         
       end
+      scope 'employeers' do  
+        get 'new', to:'employeers#new',as:'employeers_new'
+        post '/', to:'employeers#create',as:'employeers_create'    
+
+        scope ':employeer_id' do
+          get '/',to:'employeers#show',as:'employeers_show'
+          delete '/', to:'employeers#destroy', as:'employeers_destroy'
+          patch '/',to:'employeers#update',as:'employeers_update'
+          get '/edit',to:'employeers#edit',as:'employeers_edit'
+        end
+      end
+
       scope 'products' do  
         get 'new', to:'products#new',as:'products_new'
         post '/', to:'products#create',as:'products_create'
@@ -75,6 +97,7 @@ Rails.application.routes.draw do
 
       scope 'categories' do
         get '/', to:'categories#index', as:'categories_index'
+        get 'new',to:'categories#new', as:'categories_new'
         scope '/:category_id' do
           get 'edit',to:'categories#edit', as:'categories_edit'
           patch '/', to:'categories#update', as: 'categories_update'

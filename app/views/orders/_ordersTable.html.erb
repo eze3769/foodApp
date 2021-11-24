@@ -1,3 +1,5 @@
+
+<%# hace falta modificar el manejo de ordenes %>
 <div class="cards-table">  
           <table class="table">
               <thead>
@@ -13,10 +15,14 @@
                 </tr>
               </thead>
               <tbody>
+            
+                
+              
               <% orders.each do |order|%>
+                <%order.items.each do |item|%>
                 <tr>
-                   <th scope="row"><%=order.quantity%></th>
-                   <td><%=order.product.capitalize()%></td> 
+                   <th scope="row"><%=item.quantity%></th>
+                   <td><%=item.product.name.capitalize()%></td> 
               
                    <td><%=order.price%></td> 
                    <%if delete == 'true'%>
@@ -24,6 +30,7 @@
                    <td><%=link_to 'x', orders_destroy_path(:order_id => order.id, :booking_id => @booking.id),method: 'delete', class:'btn btn-danger',data:{confirm: "¿Desea eliminar el producto seleccionado?"}%></td>
                     <%end%>
                 </tr>
+              <%end%>
               <%end%>
               </tbody>
             </table>

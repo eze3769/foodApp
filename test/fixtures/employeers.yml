@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  lastName: MyString
+  idetification: 1
+  phone: 1
+  shop: one
+  shift: 1
+
+two:
+  name: MyString
+  lastName: MyString
+  idetification: 1
+  phone: 1
+  shop: two
+  shift: 1

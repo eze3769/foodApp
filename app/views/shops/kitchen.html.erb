@@ -5,12 +5,19 @@
    <ul class="orders_notes">
     <%@shop.orders.each do |order|%>
         <li>
-            <div class="stickynote_header" data-controller="kitchen">
-                <h2>Orden #<%=order.id%> <span id="prepareCounter" ref='<%=order.created_at.localtime%>' data-kitchen-target="output"> </span></h2>
-
-            </div>
             
-            <p><%=order.quantity.to_int%> <%=order.product%></p>
+            <div class="stickynote_header" data-controller="kitchen">
+                <h2>Orden #<%=order.id%>    <span id="prepareCounter" ref='<%=order.created_at.localtime%>' data-kitchen-target="output"> </span></h2>
+            </div>    
+            <div class="stickynote_body">
+                <%order.items.each do |item|%>
+                
+                <p><%=item.quantity.to_int%> <%=item.product.name%></p>
+                <%end%>
+            </div>
+            <div class="stickynote_footer">
+
+            </div >
             
         </li>
     <%end%>

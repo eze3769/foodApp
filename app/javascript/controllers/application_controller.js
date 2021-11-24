@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus'
+import {Controller} from "stimulus"
 import StimulusReflex from 'stimulus_reflex'
 
 /* This is your ApplicationController.
