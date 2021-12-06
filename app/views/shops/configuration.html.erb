@@ -46,7 +46,7 @@
     <div>
       <div class="employeers_preview">
         <%@shop.employeers.each do |employeer|%>
-          <p><%=employeer.lastName%>, <%=employeer.name%> <%=link_to "Editar", employeers_edit_path(:employeer_id => employeer.id), class:"btn btn-primary"%></p>
+          <p><%=employeer.lastName%>, <%=employeer.name%> <%=link_to "Editar", employeers_edit_path(:shop_id => @shop.id, :employeer_id => employeer.id), class:"btn btn-warning"%></p>
           <%end%>
       </div>
       <%=link_to "Agregar",employeers_new_path(:shop_id => @shop.id), class:"btn btn-primary" %>

@@ -41,23 +41,26 @@ Rails.application.routes.draw do
               scope '/bookings' do
                 post '/', to:'bookings#create',as:'bookings_create'
                 post 'booking#close', to:'bookings#close',as:'bookings_close'
+
                 scope ':booking_id' do
+                  get '/', to:'bookings#show', as:'bookings_show'
                   patch '/', to:'bookings#update', as:'bookings_update'
                   get '/edit',to:'bookings#edit',as:'bookings_edit'
 
                   scope '/orders' do
-                    
+                    get 'new(:search)', to: 'orders#new',as:'orders_new'
                     post '/',to:'orders#create',as:'orders_create'
-                    
-                    
+
+                  scope 'items' do
+                    post '/', to:'items#create', as:'items_create'
+                    delete '/:item_id', to:'items#destroy',as:'items_destroy'
+                  end
+                  
                     scope '/:order_id' do
                       get '/', to:'orders#show', as:'orders_show'
                       delete '/',to:'orders#destroy',as:'orders_destroy'
-                      get 'new(:search)', to: 'orders#new',as:'orders_new'
-
-                      scope 'items' do
-                        post '/', to:'items#create', as:'items_create'
-                      end
+                      
+                     
                     end
                   end
                 end
@@ -98,6 +101,8 @@ Rails.application.routes.draw do
       scope 'categories' do
         get '/', to:'categories#index', as:'categories_index'
         get 'new',to:'categories#new', as:'categories_new'
+        post '/', to:'categories#create', as:'categories_create'
+        
         scope '/:category_id' do
           get 'edit',to:'categories#edit', as:'categories_edit'
           patch '/', to:'categories#update', as: 'categories_update'
@@ -106,6 +111,7 @@ Rails.application.routes.draw do
       end
 
       get 'kitchen',to:"shops#kitchen",as:"shops_kitchen"
+      post '/kitchen/:order_id/stepUp', to:'orders#update', as:'orders_update'
     end
 
   end

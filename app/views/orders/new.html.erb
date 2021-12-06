@@ -19,9 +19,10 @@
       <p>Productos agregados actualmente:</p>
       <%=render 'show'%>
       <%end%>
+      <%=link_to 'Cancelar pedido', orders_destroy_path(:order_id => @order.id), method:"delete", class:'btn btn-danger'%>
     </div>
   </div>
 
   <%= link_to 'Volver a la mesa', tables_show_path(:place_id => @place.id), class:"btn btn-secondary"%>
-  <%=link_to 'Eliminar orden', orders_destroy_path(:order_id => @order.id), class:"btn btn-danger"%>
+
 </div>

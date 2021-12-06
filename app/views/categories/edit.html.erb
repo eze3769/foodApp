@@ -2,29 +2,24 @@
 <%= render 'commons/sideMenu', shop:@shop %>
 
 <div class="container mb-3">
-<% if @category.errors.any? %>
-  <div id="error_explanation">
-    <h5> No se puede guardar la categoría:</h5>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h5> No se puede guardar la categoría:</h5>
 
-    <ul>
-      <% @category.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<%= form_with model: @category, method: 'patch', url: categories_update_path do |form| %>
-
-    <%= form.label :name, "Nombre de la categoría", class:"form-label" %>
-    <%= form.text_field :name, class:"form-control"%>
-  
-    <%= form.label :description, "Descripción" , class:"form-label"%>
-    <%= form.text_field :description, class:"form-control"%>
-    <%= form.submit %>
-
-  <% end %>
-    <%= link_to 'Borrar categoría', categories_destroy_path(:category_id =>@category.id),method:'delete',class:"btn btn-danger" ,data:{confirm:"¿Está seguro que desea eliminar la categoría?. Los productos que la contienen seguiran usandola, sólo no podrá agregar nuevos."}%>
+      <ul>
+        <% @category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
+</div>
+<div class="container">
+  <h1>Editar categoría</h1>
+  <%=render 'form', method:'patch', url: categories_update_path, btnLabel: 'Actualizar categoría'%>
+  <%=link_to 'Volver', categories_index_path, class:"btn btn-secondary"%>
+  <%= link_to 'Borrar categoría', categories_destroy_path(:category_id =>@category.id),method:'delete',class:"btn btn-danger" ,data:{confirm:"¿Está seguro que desea eliminar la categoría?. Los productos que la contienen seguiran usandola, sólo no podrá agregar nuevos."}%>
 
-    <%=link_to 'Volver', shops_configuration_path, class:"btn btn-secondary"%>
+
+  
+</div>

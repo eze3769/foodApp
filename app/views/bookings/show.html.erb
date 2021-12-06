@@ -1,0 +1,76 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
+<h1>Mesa <%=@table.name%></h1>
+<div>
+  <p>Mesero: 
+    <% if @booking.employeer then%>
+      <%=@booking.employeer.lastName%>, <%=@booking.employeer.name%>
+    <%else%>
+      no asignado
+    <%end%>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Cambiar
+    </button>
+  </p>
+</div>
+<div  id="modal-container" class="cards-table">
+ <%if @booking.status == 'closed' %>
+        <%if @booking != nil%>
+          <h3>Mesa Cerrada</h3>
+          <h4>Ticket:</h4>
+            <%=render '/orders/bill', booking: @booking, shop:@shop%>
+          <%else%>
+            <p>Esta mesa aún no tuvo ventas.</p>
+          <%end%>
+      <%else%>
+      <div class="container row justify-content-around">
+        <h3>Pedidos</h3>
+        <%if @booking == [] then%>
+            <p>No hay sesiones activas en la mesa seleccionada. Por favor inicia una ;)</p>
+        <%else%>
+             <%= render '/orders/ordersTable', orders:@orders, total: @subtotal, delete:'true'%> 
+        <%end%>
+     </div>
+      
+      
+      <%end%>
+        
+    </div>
+    <div>
+        <%if @booking.status == 'closed'%>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Abrir cuenta
+          </button>
+            
+        <%else%>
+            <%= link_to 'Agregar pedidos', orders_create_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id),:method => :post, class:"btn btn-primary" %>
+            <%= link_to 'Cerrar cuenta', bookings_close_path(:table_id => @table.id,:place_id => @place.id), class:"btn btn-danger", :method => :post, data:{confirm:"¿Confirma que desea cerrar la sesión en la mesa #{@table.name}?"} %>
+        <%end%>
+        
+    </div>
+    <%=link_to 'Volver a selección de mesas', shops_manager_path(:place_id => @place.id), class:"btn btn-secondary" %>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <%if @state == false%>
+            <%=render "employeerForm", url:bookings_create_path( :place_id => @place.id, :table_id=> @table.id), method:'post', buttonLabel: 'Abrir cuenta' %>
+          <%else%>
+            <%=render "employeerForm", url:bookings_update_path( :place_id => @place.id, :table_id=> @table.id), method:'patch', buttonLabel: "Cambiar" %>
+          <%end%>
+        
+      </div>
+      <div class="modal-footer">
+      
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

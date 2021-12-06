@@ -3,7 +3,11 @@ class OrdersController < ApplicationController
     before_action :set_table, only:[:show,:create,:destroy, :new]
     
     def new
-        @order = Order.find(params[:order_id])
+        last = @booking.orders.last.items
+        if last == [] then 
+            last.destroy
+        end
+        @order = @booking.orders.find(params[:order_id])
         @categories = @shop.categories
 
         if params[:search] == nil then
@@ -12,37 +16,18 @@ class OrdersController < ApplicationController
             @product_list = @shop.products.where("name like ?","%#{params[:search]}%")
         end
     end
-    def show
-        
-        @orders = @booking.orders
 
-        # @subtotal = 0
-        # if @orders then
-        #     @orders.each do |order|
-        #         @subtotal += order.price * order.quantity
-        #     end
-        # end
-        respond_to do |format|
-            format.js
-        end
-    end
+
     def create
-        
-        # product_data = @shop.products.find(params[:product_data])
+        @order = @booking.orders.new(status: 'pendiente')
 
-       
-        # new_product = {product:product_data.name,quantity:1,price:product_data.price,status:'Pendiente'}
-        # order = @booking.orders.new(new_product)
-        
+        if @order.save then
+            redirect_to orders_new_path(:order_id => @order.id)
+        else
+            redirect_to bookings_show_path, alert:"No se pudo crear la orden."
+        end
 
-        # if order.save then
-        #     redirect_back(fallback_location: root_path , notice: "#{product_data.name.capitalize()} fue agregado satisfactoriamente a la mesa #{@table.name} ")
-        # else
-        #     render :new, status: :unprocessable_entity, alert:"No se pudo agregar el producto, intente más tarde."
-        # end
-        @order = @booking.orders.create()
 
-        redirect_to orders_new_path(:order_id => @order.id)
     end
 
     def destroy
@@ -55,6 +40,28 @@ class OrdersController < ApplicationController
       redirect_to tables_show_path(:table_id => @table.id), notice: "La orden ##{order.id} fué borrado satisfactoriamente."
 
     end
+    def update
+        
+        @order = Order.find(params[:order_id])
+        status = @order.status
+        
+        if(status =="pendiente") then
+            new_status = "en preparación"
+            @order.takenByKitchen = DateTime.now
+        elsif (status == "en preparación" )then
+            new_status = "listo para entrega"
+            @order.readyToServe = DateTime.now
+        elsif (status == "listo para entrega") then
+            new_status = "entregado"
+            timeToServe = DateTime.now
+        end
+        
+        if @order.update(status:new_status) then
+            redirect_back(fallback_location: root_path)
+        else
+            redirect_back(fallback_location: root_path, alert:"no se pudo actualizar el pedido")
+        end
+    end
     private
     def set_shop
         @shop = Shop.find_by_nick(params[:shop_nick])
@@ -64,4 +71,5 @@ class OrdersController < ApplicationController
         @table = @place.tables.find(params[:table_id])
         @booking = @table.bookings.last
     end
+   
 end

@@ -6,19 +6,13 @@ class TablesController < ApplicationController
         @table = @place.tables.new
     end
     def show
-        @place = @shop.places.find(params[:place_id])
+        
         @table = @place.tables.find(params[:table_id])
         @booking = @table.bookings.last
-        if @booking  
-          @orders = @booking.orders 
-        end
-        @state = true
-        if @booking == nil then
-            @state = false
-        elsif @booking.status == "closed" then
-            @state = false
-        end
-        @subtotal = 0
+
+        redirect_to bookings_show_path(:booking_id => @booking.id)
+
+        
         # if @orders then
         #   @orders.each do |order|
         #       @subtotal += order.price * order.quantity

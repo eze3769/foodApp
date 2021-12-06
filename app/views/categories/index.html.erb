@@ -1,6 +1,7 @@
 <%= render 'commons/navbar', shop:@shop%>
 <%= render 'commons/sideMenu', shop:@shop %>
 <div class="container">
+    <h1>Administrar categorías</h1>
     <%if @categories != [] then%> 
         <% @categories.each do |category|%>
             <div >
@@ -13,7 +14,6 @@
     <p>No hay categorias para mostrar</p>
 
 <%end%>
-    <%=link_to 'Agregar Categoria', categories_new_path, class:'btn btn-primary' %>
-
     <%=link_to 'Volver a configuraciones', shops_configuration_path, class:"btn btn-secondary"%>
+    <%=link_to 'Agregar Categoria', categories_new_path, class:'btn btn-primary' %>
 </div>

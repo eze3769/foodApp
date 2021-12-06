@@ -34,8 +34,17 @@ ul,li{
     padding: 5px;
     background-color: rgb(235, 235, 235);
     right: 0;
+    .status_pending{
+        color:red;
+    }
+    .status_preparing{
+        color:green;
+    }
 }
-
+.stickynote_footer{
+    text-align: right;
+    padding: 10px 20px;
+}
 
 .orders_notes{
     overflow:hidden;
@@ -46,7 +55,7 @@ ul,li{
     color:#000;
     background:#f6ff7a;
     display:block;
-    height:15em;
+    min-height:15em;
     width:15em;
     margin:1em;
     float:left;
@@ -65,9 +74,9 @@ ul,li{
     text-decoration: none;
 }
 .orders_notes li p{
-    padding: 1em;
+    padding: 5px 10px;
     font-family:"Reenie Beanie",arial,sans-serif;
-    font-size:180%;
+    font-size:100%;
 }
 .orders_notes li:nth-child(even) {
     transform:rotate(4deg);
@@ -97,3 +106,4 @@ ul,li{
     position:relative;
     z-index:5;
 }
+

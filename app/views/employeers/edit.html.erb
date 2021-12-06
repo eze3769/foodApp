@@ -1,0 +1,5 @@
+<div class="container">
+    <h2>Editar usuario #<%=@employeer.id%></h2> 
+    <%= render "form", model:@employeer, method:"patch",url:employeers_update_path(:shop_id => @shop.id)%>
+    <%=link_to "Volver", shops_configuration_path, class:"btn btn-secondary"%>
+</div>

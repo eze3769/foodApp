@@ -37,7 +37,9 @@ before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :manage
     
   end
   def kitchen
-
+    pendents = @shop.orders.where(status: "pendiente").sort{|a,b| a.created_at <=> b.created_at }
+    taken = @shop.orders.where(status: "en preparación").sort{|a,b| a.created_at <=> b.created_at }
+    @orders = taken + pendents
   end
   def manager
         

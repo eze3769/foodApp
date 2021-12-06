@@ -11,13 +11,19 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    
+    @category = @shop.categories.new
   end
   def edit
 
   end
 
   def create
+    @category = @shop.categories.new(category_params)
+    if @category.save
+      redirect_back(fallback_location: root_path, notice: "La categoría se creó correctamente" )
+    else
+      render :new, status: :unprocessable_entity, alert:"No se pudo crear la categoría, intente más tarde."
+    end
   end
 
   def update

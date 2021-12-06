@@ -1,0 +1,24 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+
+<div class="container mb-3">
+    <% if @category.errors.any? %>
+      <div id="error_explanation">
+        <h5> No se puede guardar la categoría:</h5>
+
+        <ul>
+          <% @category.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+</div>
+<div class="container">
+    <h1>Crear categoría</h1>
+    <%=render 'form', method:'post', url: categories_create_path, btnLabel: 'Crear categoría'%>
+
+    <%=link_to 'Volver', categories_index_path, class:"btn btn-secondary"%>
+
+</div>
+ 
