@@ -2,42 +2,47 @@
 <%= render 'commons/sideMenu', shop:@shop %>
 
 <div class="container">
-   <ul class="orders_notes">
-    <%@orders.each do |order|%>
-        <li>
-            
-            <div class="stickynote_header" data-controller="kitchen">
-                <h2>Orden #<%=order.id%>    
-                    
-                    
-                        <%if order.status == "pendiente"  then%>
-                        <span id="prepareCounter" ref='<%= order.created_at.localtime%>' data-kitchen-target="output"> 
+    <%if @orders != [] then%>
+        <ul class="orders_notes" id="kitchen_board">
+         <%@orders.each do |order|%>
+             <li>
 
-                    </span>
-                            <span class="status_pending">pendiente</span>
-                        <%elsif order.status == "en preparación"%>
-                        <span id="prepareCounter" ref='<%= order.takenByKitchen.localtime%>' data-kitchen-target="output"> 
+                 <div class="stickynote_header" data-controller="kitchen">
+                     <h2>Orden #<%=order.id%>    
 
-                    </span>
-                            <span class="status_preparing">preparando</span>
-                        <%end%>
-                    
-                </h2>
-            </div>    
-            <div class="stickynote_body">
-                <%order.items.each do |item|%>
-                
-                <p><%=item.quantity.to_int%> <%=item.product.name%></p>
-                <%end%>
-            </div>
-            <div class="stickynote_footer">
-                <%if (order.status == "en preparación" ) then%>
-                    <%=link_to 'Despachar pedido', orders_update_path(:order_id => order.id), method:"post", class:'btn btn-warning'%>
-                <%else%>
-                    <%=link_to 'Tomar pedido',orders_update_path(:order_id => order.id), method:"post", class:'btn btn-danger'%>
-                <%end%>
-            </div >
-            <%end%>
-        </li>
-    </ul>
+
+                             <%if order.status == "pendiente"  then%>
+                             <span id="prepareCounter" ref='<%= order.created_at.localtime%>' data-kitchen-target="output"> 
+
+                         </span>
+                                 <span class="status_pending">pendiente</span>
+                             <%elsif order.status == "en preparación"%>
+                             <span id="prepareCounter" ref='<%= order.takenByKitchen.localtime%>' data-kitchen-target="output"> 
+
+                         </span>
+                                 <span class="status_preparing">preparando</span>
+                             <%end%>
+
+                     </h2>
+                 </div>    
+                 <div class="stickynote_body">
+                     <%order.items.each do |item|%>
+
+                     <p><%=item.quantity.to_int%> <%=item.product.name%></p>
+                     <%end%>
+                 </div>
+                 <div class="stickynote_footer">
+                     <%if (order.status == "en preparación" ) then%>
+                         <%=link_to 'Despachar pedido', orders_update_path(:order_id => order.id), method:"post", class:'btn btn-warning'%>
+                     <%else%>
+                         <%=link_to 'Tomar pedido',orders_update_path(:order_id => order.id), method:"post", class:'btn btn-danger'%>
+                     <%end%>
+                 </div >
+                 <%end%>
+             </li>
+         </ul>
+        <%else%>
+            <p>No hay pedidos para mostrar</p>
+        <%end%>
+        <%=link_to 'Volver al administrador', shop_admin_path(@shop.nick),class:'btn btn-secondary' %>
 </div>

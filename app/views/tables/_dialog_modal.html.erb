@@ -1,0 +1,24 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%=title%></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%if option == "open" then%>
+            <%if !@state || @booking.status == 'closed'%>
+                <%=render "employeerForm", url:bookings_create_path( :place_id => @place.id, :table_id=> @table.id), method:'post', buttonLabel: 'Abrir cuenta' %>
+            <%else%>
+                <%=render "employeerForm", url:bookings_update_path( :place_id => @place.id, :table_id=> @table.id, :booking_id => @booking.id), method:'patch', buttonLabel: "Cambiar" %>
+            <%end%>
+        <%else%>
+            <%=render "bookings/edit.html.erb",url:bookings_close_path(:table_id => @table.id,:place_id => @place.id), btn_message:'Cerrar cuenta',option:"close"%>
+        <%end%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

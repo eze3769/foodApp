@@ -1,0 +1,58 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
+<div class="container">
+  <h1>Mesa <%=@table.name%></h1>
+  <%if @state then%>
+    <div>       
+    <p>Mesero: 
+      <% if @booking.employeer then%>
+        <%=@booking.employeer.lastName%>, <%=@booking.employeer.name%>
+      <%else%>
+        No asignado
+      <%end%>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Cambiar
+      </button>
+      </p>
+    </div>
+    <div  id="modal-container" class="cards-table">
+      <%if @booking.status == 'closed' %>
+        
+          <h3>Mesa Cerrada</h3>
+          <h4>Ticket:</h4>
+          <%=render '/orders/bill', booking: @booking, shop:@shop%>
+      <%else%>
+        <div class="container row justify-content-around">
+          <h3>Pedidos</h3>
+          <%= render '/orders/ordersTable', orders:@orders, total: @subtotal, delete:'true'%> 
+        </div>
+      <%end%> 
+      </div>
+      <div>
+        <%if @booking.status == 'closed'%>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Abrir cuenta
+          </button>
+          <%=render "dialog_modal", option:"open", title:"Nueva Reserva"%>
+        <%else%>
+          <%= link_to 'Agregar pedidos', orders_create_path(:table_id => @table.id,:place_id => @place.id, :booking_id => @booking.id),:method => :post, class:"btn btn-primary" %>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Cerrar cuenta
+          </button>
+          <%=render "dialog_modal", option:"close", title:"Cerrar Reserva"%>
+        <%end%>
+      </div>
+
+      
+
+      
+  <%else%>
+    <p>No hay sesiones activas en la mesa seleccionada. ¡Animate a iniciar la primera! ;)</p>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Abrir cuenta
+    </button>
+    <%=render "dialog_modal", option:"open", title:"Nueva Reserva"%>
+  <%end%>
+  <%=link_to 'Volver a selección de mesas', shops_manager_path(:place_id => @place.id), class:"btn btn-secondary" %>
+</div>
+

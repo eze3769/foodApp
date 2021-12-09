@@ -62,6 +62,17 @@ class OrdersController < ApplicationController
             redirect_back(fallback_location: root_path, alert:"no se pudo actualizar el pedido")
         end
     end
+
+    def broadcast
+        order = Order.find(params[:order_id])
+
+        ActionCable.server.broadcast(
+            "orders_channel",
+            {order: order,
+                items: order.items}
+          )
+        redirect_to tables_show_path, message:"Pedido enviado para su preparación."
+    end
     private
     def set_shop
         @shop = Shop.find_by_nick(params[:shop_nick])

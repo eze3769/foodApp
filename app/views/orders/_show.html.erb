@@ -6,6 +6,7 @@
               <th scope="col">Nombre</th>
               <th scope="col">Precio</th>
               <th scope="col">Observaciones</th>
+              <th scope="col">Borrar</th>
             </tr>
           </thead>
           <tbody>
@@ -15,6 +16,7 @@
                 <td><%=item.product.name.capitalize()%></td>
                 <td>$<%=item.product.price%></td>
                 <td><%=item.observations%></td>
+                <td><%=link_to "x", items_destroy_path(:item_id => item.id,:order_id => @order.id),method:"delete", class:"btn btn-danger"%>
               </tr>
             <%end%>
           </tbody>

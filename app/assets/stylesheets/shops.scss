@@ -107,3 +107,17 @@ ul,li{
     z-index:5;
 }
 
+.offcanvas{
+    .offcanvas-body{
+        display:flex;
+        
+        flex-direction: column;
+        .offcanvas-text{
+            text-decoration: none;
+            font-size: 1.5em;
+            line-height: 2em;
+            padding: 40px 5px ;
+            color:coral;
+        }
+    }
+}

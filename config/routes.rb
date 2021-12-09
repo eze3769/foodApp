@@ -14,7 +14,12 @@ Rails.application.routes.draw do
       get '/', to:'shops#admin', as:'shop_admin'
       get '/configuration',to:'shops#configuration',as:'shops_configuration'
       get '/manager', to:'shops#manager', as:'shops_manager'
-      get '/bookings', to: 'bookings#index',as:'bookings_index'
+      scope 'bookings' do
+        get '/', to: 'bookings#index',as:'bookings_index'
+        get '/:booking_id', to:'bookings#show', as:'bookings_show'
+
+      end
+      
 
       scope 'places' do
         get '/new', to:'places#new',as:'places_new'
@@ -43,7 +48,7 @@ Rails.application.routes.draw do
                 post 'booking#close', to:'bookings#close',as:'bookings_close'
 
                 scope ':booking_id' do
-                  get '/', to:'bookings#show', as:'bookings_show'
+                  
                   patch '/', to:'bookings#update', as:'bookings_update'
                   get '/edit',to:'bookings#edit',as:'bookings_edit'
 
@@ -59,7 +64,7 @@ Rails.application.routes.draw do
                     scope '/:order_id' do
                       get '/', to:'orders#show', as:'orders_show'
                       delete '/',to:'orders#destroy',as:'orders_destroy'
-                      
+                      post '/confirm',to:'orders#broadcast',as:'orders_broadcast'
                      
                     end
                   end

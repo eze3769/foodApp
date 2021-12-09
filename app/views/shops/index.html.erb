@@ -4,8 +4,10 @@
 <div class="card" style="width: 18rem;">
   <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title"><%=shop.name.titleize%></h5>
-    <p class="card-text"><%=shop.category.capitalize %> local</p>
+    <h5 class="card-title"><%=shop.name.titleize()%></h5>
+    <%if shop.category%>
+      <p class="card-text"><%=shop.category.capitalize() %> local</p>
+    <%end%>
      <%= link_to 'Ir al negocio', shop_show_path(shop.nick), class:"btn btn-primary" %>
   </div>
 </div>

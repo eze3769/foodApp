@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
         item.destroy
 
 
-      redirect_to tables_show_path(:table_id => @table.id), notice: "El producto #{item.product.name} fué borrado satisfactoriamente."
+      redirect_back(fallback_location:root_path, notice: "El producto #{item.product.name} fué borrado satisfactoriamente.")
 
     end
     private

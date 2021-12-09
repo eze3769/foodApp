@@ -9,15 +9,24 @@ class TablesController < ApplicationController
         
         @table = @place.tables.find(params[:table_id])
         @booking = @table.bookings.last
-
-        redirect_to bookings_show_path(:booking_id => @booking.id)
-
         
-        # if @orders then
-        #   @orders.each do |order|
-        #       @subtotal += order.price * order.quantity
-        #     end
-        # end
+        if @booking then 
+            @orders = @booking.orders
+            @state = true
+        else 
+            @state = false
+            @booking = @table.bookings.new
+            @orders = []
+        end
+        @subtotal = 0
+        if @orders then
+            @orders.each do |order|
+                order.items.each do |item|
+                    @subtotal += item.product.price * item.quantity
+                end
+            end
+        end
+
     end
     def create
         @tables = @place.tables
@@ -60,7 +69,7 @@ class TablesController < ApplicationController
         error_msg = "Las mesas "+tables_exists +" ya existen."
         message = tables_msg + " #{if existing_tables != [] then error_msg end}"
 
-        redirect_to shops_tables_manager_path(:place_id =>@place.id), notice: message
+        redirect_to tables_new_path(:place_id =>@place.id), notice: message
           
     end
     def edit

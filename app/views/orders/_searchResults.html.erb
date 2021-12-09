@@ -17,10 +17,10 @@
           </div>
           <div >
             <div data-controller="orders_generator">
-              <%= form_with model:@item, method: 'post', url: items_create_path(:order_id=>@order.id, :product_id => product.id) do |form| %> 
+              <%= form_with model:@item, method: 'post', url: items_create_path(:order_id=>@order.id, :product_id => product.id), remote:true do |form| %> 
 
                 <div class="orders_generator-form">
-                  <%= form.number_field :quantity, class:"form-control product_input-quantity", value: 1%> 
+                  <%= form.number_field :quantity, class:"form-control product_input-quantity", value: 1,min:1 %> 
                   <%= form.submit 'Agregar',class:'btn btn-primary'%>   
                 </div>
 

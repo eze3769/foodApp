@@ -1,24 +1,21 @@
 class BookingsController < ApplicationController
-    before_action :set_table, only: [:show]
+    before_action :set_table, only: [:create]
     before_action :set_booking, only: [:close, :update, :edit, :create]
     
     def show
+        @shop = Shop.find_by_nick(params[:shop_nick])
         @booking = Booking.find(params[:booking_id])
+        @table = Table.find(@booking.table_id)
         @orders = @booking.orders
-        @subtotal = 0
-        if @orders then
-            @orders.each do |order|
-                order.items.each do |item|
-                    @subtotal += item.product.price * item.quantity
-                end
-            end
-        end
+        set_total
     end
     
     def create 
 
-        set_employeer = @shop.employeers.find(params[:booking][:employeer])
         @booking = @table.bookings.new 
+
+        set_employeer = @shop.employeers.find(params[:booking][:employeer])
+        
         @booking.status = 'open'
         @booking.employeer = set_employeer
         
@@ -64,13 +61,13 @@ class BookingsController < ApplicationController
 
     def close
         set_booking
-        @subtotal = 0
-
+        @orders = @booking.orders
+        set_total
         
         
         @booking.status = 'closed'
         @booking.total = @subtotal
-        
+        @booking.update(booking_params)
         if @booking.save
             redirect_back(fallback_location: root_path, notice: "La reserva de la mesa #{@table.name} fue cerrada satisfactoriamente" )
         else
@@ -81,7 +78,17 @@ class BookingsController < ApplicationController
     end
 
     private
-   
+    
+    def set_total
+        @subtotal = 0
+        if @orders then
+            @orders.each do |order|
+                order.items.each do |item|
+                    @subtotal += item.product.price * item.quantity
+                end
+            end
+        end
+    end
     def set_table
         @shop = Shop.find_by_nick(params[:shop_nick])
         @place = @shop.places.find(params[:place_id])
@@ -92,6 +99,6 @@ class BookingsController < ApplicationController
         @booking = @table.bookings.find_by_status('open')
     end
     def booking_params
-        params.require(:booking).permit(:user,:phone,:address,:email, :employeer)
+        params.require(:booking).permit(:user,:phone,:address,:email, :employeer, :dni)
     end
 end

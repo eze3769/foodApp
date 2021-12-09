@@ -2,3 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.show_board{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .orders_table{
+        width: 60vw;
+    }
+}

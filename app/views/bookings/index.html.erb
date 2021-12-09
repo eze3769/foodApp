@@ -1,3 +1,5 @@
+<%= render 'commons/navbar', shop:@shop%>
+<%= render 'commons/sideMenu', shop:@shop %>
 <div class="container">
     <h1>Historial de ventas</h1>
     <%=form_with model:@filter, url: bookings_index_path, method:'get' do |form|  %>
@@ -16,6 +18,7 @@
                     <th scope="col">Hora</th>
                     <th scope="col">Cliente</th>
                     <th scope="col">Total</th> 
+                    <th scope="col"> Detalles</th>
                 </tr>
             </thead>
              <tbody>
@@ -27,6 +30,7 @@
                 <td><%=booking.updated_at.localtime.strftime("%H:%M:%S")%></td>
                 <td><%=booking.user%></td>
                 <td>$<%=booking.total%></td>
+                <td><%=link_to 'Ver',bookings_show_path(:booking_id => booking.id), class:"btn btn-primary"%></td>
             </tr>
             <%end%>
              </tbody>

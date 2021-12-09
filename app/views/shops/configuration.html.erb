@@ -27,7 +27,12 @@
       <th scope="row"><%=place.id%></th>
       <td><%=place.name%></td>
       <td><%=place.description%></td>
-     
+      <td>
+        <% if place.tables%>
+          <span><%place.tables.length%></span> 
+        <%end%>
+        <%=link_to 'Modificar', tables_new_path(:place_id => place.id), class:"btn btn-primary"%>
+      </td>
       <td>
       <span><%=link_to 'Editar',places_edit_path(:place_id => place.id),class:'btn btn-warning'%></span>
       <span><%=link_to 'Borrar', places_destroy_path(:place_id => place.id),method:'delete',class:'btn btn-danger'%></span>

@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_201734) do
+ActiveRecord::Schema.define(version: 2021_12_07_203250) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,22 +38,23 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "table_id", null: false
+    t.bigint "table_id", null: false
     t.string "status"
     t.float "total"
     t.string "user"
-    t.integer "phone"
+    t.bigint "phone"
     t.string "address"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "employeer_id"
+    t.bigint "employeer_id"
+    t.bigint "dni"
     t.index ["employeer_id"], name: "index_bookings_on_employeer_id"
     t.index ["table_id"], name: "index_bookings_on_table_id"
   end
@@ -58,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shop_id"], name: "index_categories_on_shop_id"
@@ -69,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
     t.string "lastName", null: false
     t.integer "identification"
     t.integer "phone"
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.integer "shift"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -79,23 +83,12 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
   create_table "items", force: :cascade do |t|
     t.text "observations"
     t.integer "quantity"
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "order_id", null: false
+    t.bigint "order_id", null: false
     t.index ["order_id"], name: "index_items_on_order_id"
     t.index ["product_id"], name: "index_items_on_product_id"
-  end
-
-  create_table "order_items", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "order_id", null: false
-    t.integer "quantity", default: 1
-    t.text "observations"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -105,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
     t.float "quantity"
     t.string "user"
     t.float "price"
-    t.integer "booking_id", null: false
+    t.bigint "booking_id", null: false
     t.string "status"
     t.datetime "timeToServe"
     t.datetime "takenByKitchen"
@@ -118,7 +111,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.index ["shop_id"], name: "index_places_on_shop_id"
   end
 
@@ -127,7 +120,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
     t.float "price"
     t.string "category"
     t.text "description"
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shop_id"], name: "index_products_on_shop_id"
@@ -150,19 +143,8 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
     t.integer "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "place_id", null: false
+    t.bigint "place_id", null: false
     t.index ["place_id"], name: "index_tables_on_place_id"
-  end
-
-  create_table "waiters", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "lastName", null: false
-    t.integer "phone", null: false
-    t.integer "dni"
-    t.integer "shop_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["shop_id"], name: "index_waiters_on_shop_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -173,11 +155,8 @@ ActiveRecord::Schema.define(version: 2021_11_30_201734) do
   add_foreign_key "employeers", "shops"
   add_foreign_key "items", "orders"
   add_foreign_key "items", "products"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "bookings"
   add_foreign_key "places", "shops"
   add_foreign_key "products", "shops"
   add_foreign_key "tables", "places"
-  add_foreign_key "waiters", "shops"
 end
