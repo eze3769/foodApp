@@ -1,5 +1,5 @@
 <%=form_with model:@booking, url:url, method:method do |form| %> 
     <%= form.label :employeer, "Usuario" , class:"form-label"%>
-    <%= form.collection_select :employeer, @shop.employeers, :id, :name, options={class:"form-control"}%>
+    <%= form.collection_select :employeer, @shop.employeers, :id, :name, { include_blank: true },options={class:"form-control"}%>
     <%= form.submit buttonLabel,class:"btn btn-warning"%>
 <%end%>

@@ -1,0 +1,19 @@
+
+<%= form_for(Shop.new, url: new_shop_session_path, method:"post" )do |f| %>
+
+    <%= f.label :email, class:"footer-text" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+
+
+    <%= f.label  :password,'Clave', class:"footer-text" %>
+    <%= f.password_field :password, autocomplete: "current-password" %>
+
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me, 'Recordarme', class:"footer-text" %>
+
+
+
+    <%= f.submit "Ingresar", class:'btn btn-primary' %>
+
+<% end %>

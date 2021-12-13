@@ -22,7 +22,10 @@
           <%= form.label :category, "Categoría" , class:"form-label"%>
           <%= form.collection_select :category, @categories, :name, :name, options={class:"form-control"}%>
         </div>
-        
+        <div>
+          <%= form.label :ecommerce, "¿En vidriera?" , class:"form-label"%>
+          <%= form.select :ecommerce, [["Sí",true], ["False",false]], options={class:"form-control"}%>
+        </div>
   
     <%= form.label :description, "Descripción" , class:"form-label"%>
     <%= form.text_field :description, class:"form-control"%>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_203250) do
+ActiveRecord::Schema.define(version: 2021_12_13_194548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_12_07_203250) do
     t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "ecommerce", default: true
     t.index ["shop_id"], name: "index_products_on_shop_id"
   end
 
@@ -137,6 +138,12 @@ ActiveRecord::Schema.define(version: 2021_12_07_203250) do
     t.string "country"
     t.string "state"
     t.string "city"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_shops_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_shops_on_reset_password_token", unique: true
   end
 
   create_table "tables", force: :cascade do |t|

@@ -6,8 +6,8 @@
   <div class="order_new_container">
     <div data-controller = "product_search" class="orders_search">
 
-    <%= render 'searchInput'%>
-    <%= render 'searchResults', product: @product_list, categories: @categories%>
+    <%= render 'searchInput', url:orders_new_path%>
+    <%= render 'searchResults', product: @product_list, categories: @categories, buyable: true%>
 
     </div>
     <div class="orders_preview">

@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
 
 
     def create
-        @order = @booking.orders.new(status: 'pendiente')
+        @order = @booking.orders.new
 
         if @order.save then
             redirect_to orders_new_path(:order_id => @order.id)
@@ -65,7 +65,8 @@ class OrdersController < ApplicationController
 
     def broadcast
         order = Order.find(params[:order_id])
-
+        order.update(status: 'pendiente')
+        
         ActionCable.server.broadcast(
             "orders_channel",
             {order: order,

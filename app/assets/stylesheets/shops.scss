@@ -8,6 +8,20 @@ a:hover{
 .backgroundLogo{
     width: 100%;
 }
+.search_shops{
+    display:flex;
+    justify-content: center;
+}
+.shops_list{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+.card{
+    margin: 20px;
+    
+}
 .mainTitle{
     text-decoration: none;
     color:whitesmoke;
@@ -27,6 +41,7 @@ a:hover{
 
 ul,li{
     list-style:none;
+  
 }
 .stickynote_header{
     width: 100%;
@@ -73,10 +88,15 @@ ul,li{
     font-size: 1.25em;
     text-decoration: none;
 }
-.orders_notes li p{
+.orders_notes li div p{
     padding: 5px 10px;
     font-family:"Reenie Beanie",arial,sans-serif;
     font-size:100%;
+
+    
+}
+.orders_notes li div p:hover{
+    cursor:pointer;
 }
 .orders_notes li:nth-child(even) {
     transform:rotate(4deg);

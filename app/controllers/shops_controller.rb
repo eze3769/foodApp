@@ -1,18 +1,34 @@
 class ShopsController < ApplicationController
-before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :manager, :kitchen]
+  before_action :set_correct_url, except: [:show, :index, :new]
+  before_action :set_shop, only: [:show]
+  before_action :set_current_shop, only: [:destroy, :edit, :admin, :config, :manager, :kitchen]
+  before_action :authenticate_shop!,except: [:index,:show,:new, :create]
+
 
   def index
-    @shops = Shop.all  
+    if current_shop then @shop = current_shop end
+    if params[:search] == nil then
+      @shops = Shop.all
+    else
+      @shops = Shop.where("name like ?","%#{params[:search]}%")
+    end
   end
 
   def show
-
+    @products = @shop.products.where(ecommerce: true)
+    @categories = @shop.categories
+    if params[:search] == nil then
+      @product_list = @products
+    else
+      @product_list = @products.where("name like ?","%#{params[:search]}%")
+    end
   end
 
   def new
     @shop = Shop.new
   end
   def create
+    
     @shop = Shop.new(shop_params)
 
     if @shop.save
@@ -62,10 +78,22 @@ before_action :set_shop, only: [:show, :destroy, :edit, :admin, :config, :manage
   end
   private
 
+  def set_correct_url
+    if (current_shop) then
+      if (current_shop != Shop.find_by_nick(params[:shop_nick]))
+        redirect_to shop_admin_path(current_shop.nick)
+      end
+    end
+  end
+
+  def set_current_shop
+    @shop = current_shop
+  end
   def set_shop
     @shop = Shop.find_by_nick(params[:shop_nick])
   end
+  
   def shop_params
-    params.require(:shop).permit(:name,:nick,:category,:email,:address,:country,:state,:city,:background)
+    params.require(:shop).permit(:name,:nick,:category,:email,:address,:country,:state,:city,:background,:password)
   end
 end

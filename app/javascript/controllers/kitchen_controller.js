@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "output" ]
+  static targets = [ "output"]
 
   get output(){
     return this.outputTarget
@@ -22,6 +22,9 @@ export default class extends Controller {
         let seconds = Math.round(delay - hours*3600 - minutes*60)
         this.output.textContent = `${hours}:${minutes}:${seconds}`
     },1000)
+  }
+  strikethrough(e){
+    e.target.style.textDecoration = "line-through"
   }
 }
 

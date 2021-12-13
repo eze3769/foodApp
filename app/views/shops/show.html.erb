@@ -1,7 +1,14 @@
-
-<h1><%=@shop.name%></h1>
-<p>Bienvenido a nuestro local de <%=@shop.category%></p>
-<%if @shop.background.attached?%>
-    <%= image_tag(@shop.background, class:"backgroundLogo")%>
+<div class="container">
+    <h1><%=@shop.name%></h1>
+    <p>Bienvenido a nuestro local de <%=@shop.category%></p>
+    <%if @shop.background.attached?%>
+        <%= image_tag(@shop.background, class:"backgroundLogo")%>
     <%end%>
- <%=render :partial => 'shops/resources/footer' %>
+    <h2>Productos</h2>
+    <div data-controller = "product_search" class="orders_search">
+
+        <%= render 'orders/searchInput', url:shop_show_path%>
+        <%= render 'orders/searchResults', product: @product_list, categories: @categories, buyable:false%>
+
+    </div>
+</div>

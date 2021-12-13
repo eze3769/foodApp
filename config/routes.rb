@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  root 'shops#index'
+  devise_for :shops, except: %w[shops#new shops#create]
+  root 'shops#index',as:'shops_index'
 
   scope 'shops' do
     get 'new', to:'shops#new',as:'shop_new'

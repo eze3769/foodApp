@@ -1,18 +1,24 @@
-<h1>Our Partners Shops</h1>
 
-<%@shops.each do  |shop| %>
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title"><%=shop.name.titleize()%></h5>
-    <%if shop.category%>
-      <p class="card-text"><%=shop.category.capitalize() %> local</p>
-    <%end%>
-     <%= link_to 'Ir al negocio', shop_show_path(shop.nick), class:"btn btn-primary" %>
+<div class="container" data-controller = "product_search" >
+  <h1>Comercios</h1>
+
+  <div class="search_shops">
+    <%=render "orders/searchInput", url:shops_index_path %>
   </div>
+  <div class="shops_list">
+  <%@shops.each do  |shop| %>
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%=shop.name.titleize()%></h5>
+      <%if shop.category%>
+        <p class="card-text"><%=shop.category.capitalize() %> local</p>
+      <%end%>
+       <%= link_to 'Ir al negocio', shop_show_path(shop.nick), class:"btn btn-primary" %>
+    </div>
+  </div>
+
+  <%end%>
 </div>
-
-<%end%>
-
-<%= link_to 'Registrar mi negocio', shop_new_path, class:"btn btn-danger"%>
-
+  <%= link_to 'Registrar mi negocio', shop_new_path, class:"btn btn-danger"%>
+</div>

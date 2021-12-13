@@ -13,12 +13,17 @@
   </head>
 
   <body>
-  <% if alert %>
-    <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-  <% if notice %>
-      <p class="alert alert-primary"><%= notice %></p>
-    <%end%>
-    <%= yield %>
+    <div class="content">
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <% if notice %>
+        <p class="alert alert-primary"><%= notice %></p>
+      <%end%>
+      <%= yield %>
+    </div>
+    <footer>
+      <%=render 'commons/sessionsFooter'%>
+    </footer>
   </body>
 </html>

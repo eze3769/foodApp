@@ -19,11 +19,27 @@
         <span class="input-group-text" id="basic-addon3">https://nuestraweb.com/</span>
         <%= form.text_field :nick, class:"form-control",id:"basic-url",placeholder:"El nombre con el que se accederá por URL, sin espacios ni caracteres especiales" %>
         </div>
-  
+    
     <%= form.label :email, "Email", class:"form-label" %>
     <%= form.email_field :email, class:"form-control" %>
     <%= form.label :email_confirmation, "Confirme su email", class:"form-label" %>
     <%= form.email_field :email_confirmation,class:"form-control" %>
+
+    
+
+  <div class="field">
+    <%= form.label :password , class:"form-label"%>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= form.password_field :password, autocomplete: "new-password" , class:"form-label"%>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation , class:"form-label"%><br />
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" , class:"form-label"%>
+  </div>
+
     <%= form.label :address, "Domicilio", class:"form-label" %>
     <%= form.text_field :address, class:"form-control" %>
     <%= form.label :country, "País", class:"form-label" %>
@@ -39,6 +55,6 @@
     <%= form.file_field :background, class:"form-control"%>
     </div>
     
-  <%= form.submit %>
+  <%= form.submit 'Crear'%>
   </div>
   <% end %>

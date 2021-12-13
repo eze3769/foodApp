@@ -5,9 +5,9 @@
     <%if @orders != [] then%>
         <ul class="orders_notes" id="kitchen_board">
          <%@orders.each do |order|%>
-             <li>
+             <li data-controller="kitchen">
 
-                 <div class="stickynote_header" data-controller="kitchen">
+                 <div class="stickynote_header" >
                      <h2>Orden #<%=order.id%>    
 
 
@@ -28,7 +28,7 @@
                  <div class="stickynote_body">
                      <%order.items.each do |item|%>
 
-                     <p><%=item.quantity.to_int%> <%=item.product.name%></p>
+                     <p class="kitchen-order-item" data-action="click->kitchen#strikethrough"><%=item.quantity.to_int%> <%=item.product.name%></p>
                      <%end%>
                  </div>
                  <div class="stickynote_footer">

@@ -1,4 +1,4 @@
-<%= form_with url: orders_new_path, data: { reflex: "submit->product_search#submit"},method: :get  do |form| %>
+<%= form_with url: url, data: { reflex: "submit->product_search#submit"},method: :get  do |form| %>
      <%=form.label 'Búsqueda'%>
      <%= form.text_field :search, data: { reflex: "input->product_search#search" , :searchProduct_target =>'input'}, autocomplete: "off" %>
      <%end%>

@@ -1,7 +1,7 @@
 class EmployeersController < ApplicationController
     before_action :set_shop
     before_action :set_employeer, only:[:edit,:update]
-
+ 
     def new
         @employeer = @shop.employeers.new
     end

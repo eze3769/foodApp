@@ -8,9 +8,9 @@
       <div class="modal-body">
         <%if option == "open" then%>
             <%if !@state || @booking.status == 'closed'%>
-                <%=render "employeerForm", url:bookings_create_path( :place_id => @place.id, :table_id=> @table.id), method:'post', buttonLabel: 'Abrir cuenta' %>
-            <%else%>
-                <%=render "employeerForm", url:bookings_update_path( :place_id => @place.id, :table_id=> @table.id, :booking_id => @booking.id), method:'patch', buttonLabel: "Cambiar" %>
+                <%=render "bookings/employeerForm", url:bookings_create_path( :place_id => @place.id, :table_id=> @table.id), method:'post', buttonLabel: 'Abrir cuenta' %>
+            
+               
             <%end%>
         <%else%>
             <%=render "bookings/edit.html.erb",url:bookings_close_path(:table_id => @table.id,:place_id => @place.id), btn_message:'Cerrar cuenta',option:"close"%>
@@ -22,3 +22,21 @@
     </div>
   </div>
 </div>
+<%if option != "open" then%>
+  <div class="modal fade" id="employeer_modal" tabindex="-1" aria-labelledby="employeer_modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="employeer_modalLabel">Cambiar usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%=render "bookings/employeerForm", url:bookings_update_path( :place_id => @place.id, :table_id=> @table.id, :booking_id => @booking.id), method:'patch', buttonLabel: "Cambiar" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>

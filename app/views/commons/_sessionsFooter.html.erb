@@ -1,0 +1,9 @@
+
+<%if shop_signed_in? then%>
+
+    <p class="footer-text"><%=current_shop.email%>
+    <%=link_to "Intranet", shop_admin_path(@shop.nick), class:"btn btn-primary"%>
+    <%=link_to 'Salir', destroy_shop_session_path, method:'delete', class:"btn btn-danger"%>
+<% else %>
+    <%=render 'commons/session_new'%>
+<%end%>
