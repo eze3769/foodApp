@@ -51,6 +51,10 @@ class OrdersController < ApplicationController
         elsif (status == "en preparación" )then
             new_status = "listo para entrega"
             @order.readyToServe = DateTime.now
+            ActionCable.server.broadcast(
+                "orders_channel",
+                {status: "ok"}
+              )
         elsif (status == "listo para entrega") then
             new_status = "entregado"
             timeToServe = DateTime.now

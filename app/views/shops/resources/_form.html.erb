@@ -13,17 +13,17 @@
 <%= form_with model: shop, method: 'post', url: url do |form| %>
 
     <%= form.label :name, "Nombre del comercio", class:"form-label" %>
-    <%= form.text_field :name, class:"form-control"%>
+    <%= form.text_field :name, class:"form-control" %>
     <%= form.label :nick, "Nickname" , class:"form-label"%>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon3">https://nuestraweb.com/</span>
-        <%= form.text_field :nick, class:"form-control",id:"basic-url",placeholder:"El nombre con el que se accederá por URL, sin espacios ni caracteres especiales" %>
+        <%= form.text_field :nick, class:"form-control",id:"basic-url",placeholder:"El nombre con el que se accederá por URL, sin espacios ni caracteres especiales" , disabled: !new%>
         </div>
     
     <%= form.label :email, "Email", class:"form-label" %>
-    <%= form.email_field :email, class:"form-control" %>
+    <%= form.email_field :email, class:"form-control" , disabled: !new%>
     <%= form.label :email_confirmation, "Confirme su email", class:"form-label" %>
-    <%= form.email_field :email_confirmation,class:"form-control" %>
+    <%= form.email_field :email_confirmation,class:"form-control" , disabled: !new%>
 
     
 
@@ -55,6 +55,6 @@
     <%= form.file_field :background, class:"form-control"%>
     </div>
     
-  <%= form.submit 'Crear'%>
+  <%= form.submit message, class:"btn btn-primary"%>
   </div>
   <% end %>

@@ -1,4 +1,4 @@
 <div class="container">
-    <%= render "form", model:@employeer, method:"post",url:employeers_create_path(:shop_id => @shop.id)%>
+    <%= render "form", model:@employeer, method:"post",url:employeers_create_path(:shop_id => @shop.id), message:"Crear"%>
     <%=link_to "Volver", shops_configuration_path, class:"btn btn-secondary"%>
 </div>

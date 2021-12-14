@@ -24,14 +24,14 @@
         </div>
         <div>
           <%= form.label :ecommerce, "¿En vidriera?" , class:"form-label"%>
-          <%= form.select :ecommerce, [["Sí",true], ["False",false]], options={class:"form-control"}%>
+          <%= form.select :ecommerce, [["Sí",true], ["No",false]], options={class:"form-control"}%>
         </div>
   
     <%= form.label :description, "Descripción" , class:"form-label"%>
     <%= form.text_field :description, class:"form-control"%>
     <%= form.label :image, "Imágen" , class:"form-label"%>
     <%= form.file_field :image, class:"form-control"%>
-    <%= form.submit %>
+    <%= form.submit message, class:"btn btn-primary" %>
 
   <% end %>
     </div>

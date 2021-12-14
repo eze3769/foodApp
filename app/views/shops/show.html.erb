@@ -4,11 +4,13 @@
     <%if @shop.background.attached?%>
         <%= image_tag(@shop.background, class:"backgroundLogo")%>
     <%end%>
-    <h2>Productos</h2>
-    <div data-controller = "product_search" class="orders_search">
+    <%if @shop.products != []%>
+        <h2>Productos</h2>
+        <div data-controller = "product_search" class="orders_search">
 
-        <%= render 'orders/searchInput', url:shop_show_path%>
-        <%= render 'orders/searchResults', product: @product_list, categories: @categories, buyable:false%>
+            <%= render 'orders/searchInput', url:shop_show_path%>
+            <%= render 'orders/searchResults', product: @product_list, categories: @categories, buyable:false%>
 
-    </div>
+        </div>
+    <%end%>
 </div>

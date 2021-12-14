@@ -58,7 +58,7 @@ class ShopsController < ApplicationController
     @orders = taken + pendents
   end
   def manager
-        
+    @orders_ready = []
     if params[:place_id]
         @place = @shop.places.find(params[:place_id])
     else
@@ -68,9 +68,18 @@ class ShopsController < ApplicationController
       @tables = @place.tables
       if @tables then
         @tables = @place.tables.sort{|a,b| a.name <=> b.name }
+        
+        
+        @tables.each do |table|
+          table.bookings.where(status: "open").each do |bookings|
+          @orders_ready += bookings.orders.where(:status => "listo para entrega")
+          end
+        end
       end
     end
-   
+
+    
+
   end
   def configuration
     @shop = Shop.find_by_nick(params[:shop_nick])

@@ -14,14 +14,26 @@
   <p>Descripción: <%=@place.description.capitalize()%></p>
 
   <%if @tables != []%>
-  <h2>Seleccione mesa en <%=@place.name%>:</h2>
-  <div class="table_list">
-    <% @tables.each do |table| %>
-     
-        <%= link_to table.name, tables_show_path(:place_id => @place.id, :table_id => table.id), class:" table_style #{table.bookings.where(status:'open')==[] ? 'non-active-table' : 'active-table'}" %>
-      
-      <%end%>
-      
+  <div class="manager_view">
+    <div class="tables_container">
+      <h2>Seleccione mesa en <%=@place.name%>:</h2>
+      <div class="table_list">
+        <% @tables.each do |table| %>
+
+            <%= link_to table.name, tables_show_path(:place_id => @place.id, :table_id => table.id), class:" table_style #{table.bookings.where(status:'open')==[] ? 'non-active-table' : 'active-table'}" %>
+
+          <%end%>
+
+      </div>
+    </div>
+    <div>
+      <h3>Ordenes listas:</h3>
+      <div class="orders_ready-container">
+        <%@orders_ready.each do |order|%>
+          <%=render "shops/resources/order_ready_item", id: order.id, name: order.table.name%>
+        <%end%>
+      </div>
+    </div>
   </div>
   <%else%>
   <p>No hay mesas creadas en el espacio elegido. </p>

@@ -1,4 +1,4 @@
 <h3>Agregar un nuevo producto:</h3>
 
-<%= render 'form', model:@product, url: products_create_path,method:'post'%>
+<%= render 'form', model:@product, url: products_create_path,method:'post', message:"Crear"%>
 <%=link_to 'Volver a configuración', shops_configuration_path(@shop.nick),class:'btn btn-secondary' %>

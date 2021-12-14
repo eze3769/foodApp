@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :shops, except: %w[shops#new shops#create]
-  root 'shops#index',as:'shops_index'
+  root 'shops#index'
 
   scope 'shops' do
     get 'new', to:'shops#new',as:'shop_new'
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/:shop_nick', to:'shops#show', as:'shop_show'
+  get '/:shop_nick/edit', to:'shops#edit', as:'shop_edit'
 
   scope '/:shop_nick' do
     scope '/admin' do
