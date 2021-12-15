@@ -86,7 +86,11 @@
       <%end%>
     </div>
     <%end%>
-    <%=link_to 'Agregar producto', products_new_path,class:"btn btn-danger"%>
+    <%if @shop.categories != [] then%>
+      <%=link_to 'Agregar producto', products_new_path,class:"btn btn-danger"%>
+    <%else%>
+      <p>Primero cree al menos una categoría</p>
+    <%end%>
 </div>
   <div class="m-2 p-5 border">
     <h5>Categorias:</h5>

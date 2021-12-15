@@ -5,9 +5,40 @@
 a:hover{
     color:white;
 }
-.backgroundLogo{
-    width: 100%;
+.shop_nameLogo_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding:20px;
+    .shop_logo{
+        width: 80px;
+        padding:5px;
+    }
 }
+
+.shop_background-container{
+    
+    width: 100vw;
+    left:0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    z-index: 1;
+    .shop_info-container{
+       
+        margin: 0px 60px;
+        background-color: rgba(245, 245, 245, 0.6);
+        border-radius: 20px;
+        padding:20px 40px;
+        z-index: 2;
+        background-size: 100%;
+        min-height: 70vh;
+        h2{
+            text-align: center;
+        }
+    }
+}
+
 .search_shops{
     display:flex;
     justify-content: center;
@@ -159,5 +190,17 @@ ul,li{
         margin:0;
         padding:0;
 
+    }
+}
+
+footer{
+    z-index: 2;
+    height: 80px;
+    background-color: black;
+    padding:10px 20px;
+    text-align: right;
+    .footer-text{
+        color:whitesmoke;
+        
     }
 }

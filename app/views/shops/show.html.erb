@@ -1,16 +1,26 @@
-<div class="container">
-    <h1><%=@shop.name%></h1>
-    <p>Bienvenido a nuestro local de <%=@shop.category%></p>
+<div >
+    <div class="shop_nameLogo_container">
+
+        <%if @shop.logo.attached?%>
+            <%= image_tag(@shop.logo, class:"shop_logo")%>
+        <%end%>
+        <h1><%=@shop.name.titleize%></h1>
+    </div>
+    <div 
     <%if @shop.background.attached?%>
-        <%= image_tag(@shop.background, class:"backgroundLogo")%>
-    <%end%>
-    <%if @shop.products != []%>
-        <h2>Productos</h2>
-        <div data-controller = "product_search" class="orders_search">
-
-            <%= render 'orders/searchInput', url:shop_show_path%>
-            <%= render 'orders/searchResults', product: @product_list, categories: @categories, buyable:false%>
-
+        style="background-image: url(<%=rails_blob_url(@shop.background)%>)"
+    <%end%> class="shop_background-container">
+ 
+        <div class="shop_info-container">
+            <h2>Bienvenido a nuestro local de <%=@shop.category%></h2>
+        
+            <%if @shop.products != []%>
+                <h2>Productos</h2>
+                <div data-controller = "product_search" class="orders_search">
+                    <%= render 'orders/searchInput', url:shop_show_path%>
+                    <%= render 'orders/searchResults', product: @product_list, categories: @categories, buyable:false%>
+                </div>
+            <%end%>
         </div>
-    <%end%>
+    </div>
 </div>

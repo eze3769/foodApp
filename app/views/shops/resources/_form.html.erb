@@ -10,7 +10,7 @@
     </ul>
   </div>
 <% end %>
-<%= form_with model: shop, method: 'post', url: url do |form| %>
+<%= form_with model: shop, method: method, url: url do |form| %>
 
     <%= form.label :name, "Nombre del comercio", class:"form-label" %>
     <%= form.text_field :name, class:"form-control" %>
@@ -32,13 +32,16 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= form.password_field :password, autocomplete: "new-password" , class:"form-label"%>
+    <%= form.password_field :password, autocomplete: "new-password" , class:"form-label", disabled: !new%>
   </div>
 
   <div class="field">
     <%= form.label :password_confirmation , class:"form-label"%><br />
-    <%= form.password_field :password_confirmation, autocomplete: "new-password" , class:"form-label"%>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" , class:"form-label", disabled: !new%>
   </div>
+  <%=if !new then%>
+
+  <%end%>
 
     <%= form.label :address, "Domicilio", class:"form-label" %>
     <%= form.text_field :address, class:"form-control" %>
@@ -51,10 +54,15 @@
     <%= form.label :category, "Categoría", class:"form-label" %>
     <%= form.select :category, ["Restaurante", "Comida rápida", "Bar/pub"],class:"form-select" %>
     <div class="input-group mb-3">
-    <%= form.label :category, "Fondo de pantalla", class:"input-group-text" %>
-    <%= form.file_field :background, class:"form-control"%>
-    </div>
+      <%= form.label :background, "Fondo de pantalla", class:"input-group-text" %>
+      <%= form.file_field :background, class:"form-control"%>
     
+    </div>
+    <div class="input-group mb-3">
+      <%= form.label :logo, "Logo", class:"input-group-text" %>
+      <%= form.file_field :logo, class:"form-control"%>
+    </div>
+    <p>Recomendamos imágenes de hasta 120x120px y hasta 100kb de tamaño.</p>
   <%= form.submit message, class:"btn btn-primary"%>
   </div>
   <% end %>

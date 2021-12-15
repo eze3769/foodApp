@@ -9,7 +9,11 @@
         <% product.where(:category => category.name).each do |product|%>
         <div class="product_card">
           <div >
-            <%= image_tag("food_icon.png", :alt => "comida", class:"product_img") %>
+            <%if product.image.attached?%>
+              <%= image_tag(product.image, :alt => product.name, class:"product_img") %>
+            <%else%>
+              <%= image_tag("food_icon.png", :alt => product.name, class:"product_img") %>
+            <%end%>
           </div>
 
           <div>

@@ -1,7 +1,7 @@
 class ShopsController < ApplicationController
   before_action :set_correct_url, except: [:show, :index, :new]
   before_action :set_shop, only: [:show]
-  before_action :set_current_shop, only: [:destroy, :edit, :admin, :config, :manager, :kitchen]
+  before_action :set_current_shop, only: [:destroy,:update, :edit, :admin, :config, :manager, :kitchen]
   before_action :authenticate_shop!,except: [:index,:show,:new, :create]
 
 
@@ -46,6 +46,12 @@ class ShopsController < ApplicationController
   end
 
   def update
+    @shop.update(shop_params)
+      if @shop.save
+        redirect_to shops_configuration_path, notice: "El comercio fue actualizado correctamente" 
+      else
+        render :edit, status: :unprocessable_entity, alert:"No se pudo modificar el comercio, intente más tarde."
+      end
   end
   
   def admin
@@ -103,6 +109,6 @@ class ShopsController < ApplicationController
   end
   
   def shop_params
-    params.require(:shop).permit(:name,:nick,:category,:email,:address,:country,:state,:city,:background,:password)
+    params.require(:shop).permit(:name,:nick,:category,:email,:address,:country,:state,:city,:background,:password,:logo)
   end
 end

@@ -31,7 +31,11 @@
     <%= form.text_field :description, class:"form-control"%>
     <%= form.label :image, "Imágen" , class:"form-label"%>
     <%= form.file_field :image, class:"form-control"%>
-    <%= form.submit message, class:"btn btn-primary" %>
+    <%if @shop.categories != []%>
+      <%= form.submit message, class:"btn btn-primary" %>
+    <%else%>
+      <p>No hay categorías disponibles</p>
+    <%end%>
 
   <% end %>
     </div>

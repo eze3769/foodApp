@@ -1,4 +1,6 @@
-<h2>Registre su local en nuestra web</h2>
+<div class="container">
+    <h2>Registre su local en nuestra web</h2>
 
-<%= render 'shops/resources/form', shop: @shop, url: shop_create_path, message:"Crear",new:true %>
-  
+    <%= render 'shops/resources/form', shop: @shop, method:"post", url: shop_create_path, message:"Crear",new:true %>
+    <%=link_to 'Volver',root_path, class:"btn btn-secondary"%>
+</div>

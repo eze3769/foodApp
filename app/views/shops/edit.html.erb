@@ -1,5 +1,6 @@
-<h2>Edite su local</h2>
+<div class="container">
+    <h2>Edite su local</h2>
 
-<%= render 'shops/resources/form', shop: @shop, url: shop_create_path, message:"Editar", new:false %>
-  
-
+    <%= render 'shops/resources/form', shop: @shop, method:"patch", url: shop_update_path, message:"Editar", new:false %>
+    <%=link_to 'Volver',shops_configuration_path(@shop.id), class:"btn btn-secondary"%>
+</div>

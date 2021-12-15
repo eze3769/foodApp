@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/:shop_nick', to:'shops#show', as:'shop_show'
   get '/:shop_nick/edit', to:'shops#edit', as:'shop_edit'
+  patch '/:shop_nick', to:'shops#update', as:'shop_update'
 
   scope '/:shop_nick' do
     scope '/admin' do
