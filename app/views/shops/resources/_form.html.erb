@@ -39,9 +39,7 @@
     <%= form.label :password_confirmation , class:"form-label"%><br />
     <%= form.password_field :password_confirmation, autocomplete: "new-password" , class:"form-label", disabled: !new%>
   </div>
-  <%=if !new then%>
-
-  <%end%>
+ 
 
     <%= form.label :address, "Domicilio", class:"form-label" %>
     <%= form.text_field :address, class:"form-control" %>
