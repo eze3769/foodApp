@@ -16,6 +16,10 @@ a:hover{
         padding:5px;
     }
 }
+.shop_logo-index{
+    width: 200px;
+    padding: 10px;
+}
 
 .shop_background-container{
     
@@ -51,7 +55,10 @@ a:hover{
 }
 .card{
     margin: 20px;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .mainTitle{
     text-decoration: none;

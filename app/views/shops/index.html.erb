@@ -8,7 +8,9 @@
   <div class="shops_list">
   <%@shops.each do  |shop| %>
   <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <%if @shop.logo.attached?%>
+      <%= image_tag(@shop.logo, class:"shop_logo-index")%>
+    <%end%>
     <div class="card-body">
       <h5 class="card-title"><%=shop.name.titleize()%></h5>
       <%if shop.category%>
