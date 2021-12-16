@@ -119,7 +119,7 @@ Rails.application.routes.draw do
       end
 
       get 'kitchen',to:"shops#kitchen",as:"shops_kitchen"
-      post '/kitchen/:order_id/stepUp', to:'orders#update', as:'orders_update'
+      patch '/kitchen/:order_id/stepUp', to:'orders#update', as:'orders_update'
     end
 
   end

@@ -33,9 +33,9 @@
                  </div>
                  <div class="stickynote_footer">
                      <%if (order.status == "en preparación" ) then%>
-                         <%=link_to 'Despachar pedido', orders_update_path(:order_id => order.id), method:"post", class:'btn btn-warning'%>
+                         <%=link_to 'Despachar pedido', orders_update_path(:order_id => order.id), method:"patch", class:'btn btn-warning'%>
                      <%else%>
-                         <%=link_to 'Tomar pedido',orders_update_path(:order_id => order.id), method:"post", class:'btn btn-danger'%>
+                         <%=link_to 'Tomar pedido',orders_update_path(:order_id => order.id), method:"patch", class:'btn btn-danger'%>
                      <%end%>
                  </div >
                  <%end%>
