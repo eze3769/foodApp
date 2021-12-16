@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
       private 
 
       def product_params
-        params.require(:product).permit(:name,:price,:category,:description,:image)
+        params.require(:product).permit(:name,:price,:category,:description,:image, :ecommerce)
       end
       def set_shop
         @shop = Shop.find_by_nick(params[:shop_nick])

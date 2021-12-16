@@ -3,10 +3,10 @@ class Shop < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-    has_many :products
-    has_many :places
-    has_many :categories
-    has_many :employeers
+    has_many :products, dependent: :destroy
+    has_many :places, dependent: :destroy
+    has_many :categories, dependent: :destroy
+    has_many :employeers, dependent: :destroy
     has_many :tables, through: :places
     has_many :bookings, through: :tables
     has_many :orders, through: :bookings
